@@ -1,13 +1,15 @@
 package edu.estu.estufastingrestapi.entities;
 
 import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.*;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.time.LocalTime;
 
 @Getter
@@ -17,7 +19,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "tb_meal")
-public class Meal extends BaseEntity<Integer> {
+public class Meal extends BaseEntity<Integer> implements Creatable, Readable, Updatable, Deletable {
 
     @Id
     @Column(name = "id_meal", nullable = false)

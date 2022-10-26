@@ -9,15 +9,15 @@
         <relativePath/>
     </parent>
     <groupId>edu.estu</groupId>
-    <artifactId>estufasting</artifactId>
+    <artifactId>EstuFasting-RestApi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>estufasting</name>
-    <description>estufasting</description>
+    <name>EstuFasting-RestApi</name>
+    <description>EstuFasting-RestApi</description>
     <properties>
         <java.version>17</java.version>
         <snakeyaml.version>1.32</snakeyaml.version>
         <org.projectlombok.version>1.18.24</org.projectlombok.version>
-        <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
+        <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
     </properties>
     <profiles>
         <profile>

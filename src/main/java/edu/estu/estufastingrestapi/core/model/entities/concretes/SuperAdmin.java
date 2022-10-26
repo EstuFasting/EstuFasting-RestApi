@@ -1,6 +1,10 @@
 package edu.estu.estufastingrestapi.core.model.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Creatable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Deletable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Updatable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +25,5 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "id_user", referencedColumnName = "id_user", foreignKey = @ForeignKey(name = "fk_super_admin_user"))
 @OnDelete(action = OnDeleteAction.CASCADE)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class SuperAdmin extends User {
+public class SuperAdmin extends User implements Creatable, Readable, Updatable, Deletable {
 }

@@ -2,6 +2,10 @@ package edu.estu.estufastingrestapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Creatable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Deletable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Updatable;
 import edu.estu.estufastingrestapi.core.model.entities.concretes.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +29,7 @@ import javax.persistence.*;
 @PrimaryKeyJoinColumn(name = "id_user", referencedColumnName = "id_user", foreignKey = @ForeignKey(name = "fk_customer_user"))
 @OnDelete(action = OnDeleteAction.CASCADE)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Customer extends User {
+public class Customer extends User implements Creatable, Readable, Updatable, Deletable {
 
     @Column(name = "uq_card_no", nullable = false, length = SizeOf.Text.Max.CUSTOMER_CARD_NO)
     private String cardNo;

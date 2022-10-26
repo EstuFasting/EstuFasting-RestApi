@@ -3,13 +3,15 @@ package edu.estu.estufastingrestapi.core.model.entities.concretes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -22,7 +24,7 @@ import java.util.UUID;
 @Table(name = "tb_user_password")
 @SQLDelete(sql = "UPDATE tb_user_password SET is_deleted = '1' WHERE id_user_password=?")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Password extends BaseEntity<UUID> {
+public class Password extends BaseEntity<UUID> implements Creatable, Readable, Updatable, Deletable {
 
     @Id
     @GeneratedValue

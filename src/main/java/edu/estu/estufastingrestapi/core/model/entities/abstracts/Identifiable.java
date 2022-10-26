@@ -1,6 +1,6 @@
 package edu.estu.estufastingrestapi.core.model.entities.abstracts;
 
-public interface Persistable<ID> extends Entity {
+public interface Identifiable<ID> extends Entity {
 
     ID getId();
 
