@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.estu.estufastingrestapi.core.model.constants.hibernate.FilterName;
 import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
-import edu.estu.estufastingrestapi.core.model.entities.concretes.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,7 @@ import java.util.Objects;
 @MappedSuperclass
 @FilterDef(name = FilterName.IsDeleted, parameters = @ParamDef(name = "deleted", type = "char"))
 @Filter(name = FilterName.IsDeleted, condition = "is_deleted = :deleted")
-public abstract class BaseEntity<ID> implements Entity, Persistable<ID>, CreateAuditable, UpdateAuditable, SoftDeletable {
+public abstract class BaseEntity<ID> implements Entity, Identifiable<ID>, CreateAuditable, UpdateAuditable, SoftDeletable {
 
     @JsonFormat(pattern = "yyyy-MM-dd hh:dd")
     @Column(name = "dt_created", nullable = false, updatable = false)
@@ -59,6 +58,7 @@ public abstract class BaseEntity<ID> implements Entity, Persistable<ID>, CreateA
 
     @PreUpdate
     public void preUpdate() {
+
         this.modifiedAt = LocalDateTime.now();
         this.modifier = "[ANONYMOUS]";
     }
@@ -67,8 +67,8 @@ public abstract class BaseEntity<ID> implements Entity, Persistable<ID>, CreateA
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(getId(), user.getId());
+        BaseEntity<ID> baseEntity = (BaseEntity<ID>) o;
+        return Objects.equals(getId(), baseEntity.getId());
     }
 
     @Override

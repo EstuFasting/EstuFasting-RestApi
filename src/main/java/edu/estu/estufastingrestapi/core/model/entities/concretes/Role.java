@@ -2,7 +2,8 @@ package edu.estu.estufastingrestapi.core.model.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.SQLDelete;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -23,7 +25,7 @@ import java.util.Collection;
 @Table(name = "tb_role", uniqueConstraints = @UniqueConstraint(columnNames = "uq_name", name = "uk_role_name"))
 @SQLDelete(sql = "UPDATE tb_role SET is_deleted = '1' WHERE id_role=?")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Role extends BaseEntity<Integer> {
+public class Role extends BaseEntity<Integer> implements Creatable, Readable, Updatable, Deletable {
 
     @Id
     @Column(name = "id_role", nullable = false, updatable = false)
@@ -44,7 +46,7 @@ public class Role extends BaseEntity<Integer> {
             uniqueConstraints = @UniqueConstraint(name = "uk_role_privilege_role_privilege", columnNames = {"rf_role", "rf_privilege"})
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
-    protected Collection<Privilege> privileges;
+    private Collection<Privilege> privileges;
 
 
 }

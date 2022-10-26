@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
 import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Deletable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +39,7 @@ import java.util.UUID;
 @SQLDelete(sql = "UPDATE tb_user SET is_deleted = '1' WHERE id_user=?")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class User extends BaseEntity<UUID> {
+public class User extends BaseEntity<UUID> implements Readable, Deletable {
 
     @Id
     @GeneratedValue
@@ -50,11 +52,11 @@ public class User extends BaseEntity<UUID> {
     @Column(name = "uq_email", nullable = false)
     protected String email;
 
-    @Column(name = "uq_phone_number", nullable = false, length = SizeOf.Text.Max.PHONE_NUM)
+    @Column(name = "uq_phone_number", length = SizeOf.Text.Max.PHONE_NUM)
     protected String phoneNumber;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rf_language", nullable = false, foreignKey = @ForeignKey(name = "fk_user_language"))
+    @JoinColumn(name = "rf_language", foreignKey = @ForeignKey(name = "fk_user_language"))
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     protected Language language;
 

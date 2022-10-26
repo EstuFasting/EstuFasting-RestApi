@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public interface CreateAuditable extends Entity {
 
-    void setCreatedAt(LocalDateTime createdAt);
-
     LocalDateTime getCreatedAt();
+
+    void setCreatedAt(LocalDateTime createdAt);
 
     String getCreator();
 

@@ -6,9 +6,9 @@ public interface UpdateAuditable extends Entity {
 
     LocalDateTime getModifiedAt();
 
-    String getModifier();
-
     void setModifiedAt(LocalDateTime modifiedAt);
+
+    String getModifier();
 
     void setModifier(String modifier);
 
