@@ -19,7 +19,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class UserUpdateDto implements Dto {
+public class UserUpdateDto implements Dto {
 
     @NotNull(message = Msg.REQUIRED)
     protected UUID id;
@@ -37,10 +37,10 @@ public abstract class UserUpdateDto implements Dto {
     protected String phoneNumber;
 
     @NotNull(message = Msg.REQUIRED)
-    protected Integer country;
+    protected Integer countryId;
 
     @NotNull(message = Msg.REQUIRED)
-    protected Integer language;
+    protected Integer languageId;
 
     @NotBlank(message = Msg.REQUIRED)
     @Size(min = SizeOf.Text.Min.PW, max = SizeOf.Text.Max.PW, message = Msg.SIZE)

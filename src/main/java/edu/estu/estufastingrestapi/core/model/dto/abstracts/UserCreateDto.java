@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class UserCreateDto implements Dto {
+public class UserCreateDto implements Dto {
 
     @NotBlank(message = Msg.REQUIRED)
     protected String username;
