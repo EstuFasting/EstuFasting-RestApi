@@ -1,4 +1,4 @@
-package edu.estu.estufastingrestapi.core.model.response.helper;
+package sk6.my.templateproject.core.model.response.helper;
 
 import org.apache.commons.lang3.StringUtils;
 
