@@ -1,4 +1,4 @@
-package edu.estu.estufastingrestapi.entities;
+package edu.estu.estufastingrestapi.model.entities;
 
 import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
 import edu.estu.estufastingrestapi.core.model.entities.abstracts.*;

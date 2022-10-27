@@ -21,10 +21,15 @@ public class SizeOf {
         public static class Min {
             public static final int UUID = 16;
 
-            public static final int F_NAME = 2;
-            public static final int L_NAME = 2;
+            public static final int FIRST_NAME = 2;
+            public static final int LAST_NAME = 2;
             public static final int PW = 6;
             public static final int ADDR = 20;
+
+            public static final int LANGUAGE_ENGLISH_NAME = 2;
+            public static final int LANGUAGE_LOCAL_NAME = 2;
+            public static final int LANGUAGE_ALPHA2 = 2;
+            public static final int LANGUAGE_ALPHA3T = 3;
         }
 
         public static class Max {

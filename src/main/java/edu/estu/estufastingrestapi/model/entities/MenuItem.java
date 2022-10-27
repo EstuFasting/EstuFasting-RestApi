@@ -1,4 +1,4 @@
-package edu.estu.estufastingrestapi.entities;
+package edu.estu.estufastingrestapi.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
