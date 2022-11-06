@@ -13,7 +13,7 @@ public class DbValidationHelper {
 
     public <T extends Entity> boolean existsByField(Class<T> entityClass, String fieldName, Object value) {
         return session
-                .createQuery("select 1 from %s where %s = :value".formatted(entityClass.getSimpleName(), fieldName), Integer.class)
+                .createQuery("select 1 from %s where %s = :value".formatted(entityClass.getSimpleName(), fieldName))
                 .setParameter("value", value)
                 .uniqueResult() != null;
     }

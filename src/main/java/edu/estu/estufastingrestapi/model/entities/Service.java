@@ -1,15 +1,13 @@
 package edu.estu.estufastingrestapi.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.*;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.util.UUID;
 
 @Getter
@@ -20,7 +18,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tb_service")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Service extends BaseEntity<UUID> implements Creatable, Readable, Updatable, Deletable {
+public class Service extends BaseEntity<UUID> {
 
     @Id
     @Column(name = "id_service", nullable = false)

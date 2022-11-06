@@ -8,7 +8,7 @@ import lombok.Getter;
 import javax.validation.Path;
 
 @Getter
-public class ApiValidationError extends ApiSubError {
+public class ApiValidationError implements ApiSubError {
 
     private final String object;
     private final String field;
@@ -32,10 +32,8 @@ public class ApiValidationError extends ApiSubError {
 
     public ApiValidationError(Path propPath, Object rejectedValue, String message) {
         String[] sliced = propPath.toString().split("\\.");
-        String object = sliced[sliced.length - 2];
-        String field = sliced[sliced.length - 1];
-        this.object = object;
-        this.field = field;
+        this.object = sliced[sliced.length - 2];
+        this.field = sliced[sliced.length - 1];
         this.rejectedValue = rejectedValue;
         this.message = field == null ? message : MessageHelper.getViolationMsg(field, message);
     }

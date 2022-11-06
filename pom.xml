@@ -86,6 +86,13 @@
             <version>1.9.9.1</version>
         </dependency>
 
+        <!-- API UI PRESENTATION -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
         <!-- DATA ACCESS -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>

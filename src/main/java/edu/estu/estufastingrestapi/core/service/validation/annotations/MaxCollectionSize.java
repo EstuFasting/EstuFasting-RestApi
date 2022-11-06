@@ -7,7 +7,7 @@ import javax.validation.Payload;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@Constraint(validatedBy = {MaxCollectionSizeValidator.class})
+@Constraint(validatedBy = MaxCollectionSizeValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MaxCollectionSize {
 

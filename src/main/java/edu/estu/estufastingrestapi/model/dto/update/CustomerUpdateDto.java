@@ -1,9 +1,12 @@
 package edu.estu.estufastingrestapi.model.dto.update;
 
-import edu.estu.estufastingrestapi.core.model.dto.abstracts.UserUpdateDto;
 import edu.estu.estufastingrestapi.model.entities.CustomerType;
+import lombok.Getter;
+import lombok.Setter;
 
-public class CustomerUpdateDto extends UserUpdateDto {
+@Getter
+@Setter
+public class CustomerUpdateDto {
 
     private String cardNo;
 

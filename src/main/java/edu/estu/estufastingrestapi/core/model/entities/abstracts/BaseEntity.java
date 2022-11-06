@@ -1,13 +1,12 @@
 package edu.estu.estufastingrestapi.core.model.entities.abstracts;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import edu.estu.estufastingrestapi.core.model.constants.hibernate.FilterName;
-import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
+import edu.estu.estufastingrestapi.core.model.constants.FilterName;
+import edu.estu.estufastingrestapi.core.model.constants.Validation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
@@ -26,24 +25,20 @@ import java.util.Objects;
 @NoArgsConstructor
 
 @MappedSuperclass
-@FilterDef(name = FilterName.IsDeleted, parameters = @ParamDef(name = "deleted", type = "char"))
-@Filter(name = FilterName.IsDeleted, condition = "is_deleted = :deleted")
+@FilterDef(name = FilterName.IS_DELETED, parameters = @ParamDef(name = "deleted", type = "char"))
+@Filter(name = FilterName.IS_DELETED, condition = "is_deleted = :deleted")
 public abstract class BaseEntity<ID> implements Entity, Identifiable<ID>, CreateAuditable, UpdateAuditable, SoftDeletable {
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:dd")
     @Column(name = "dt_created", nullable = false, updatable = false)
     protected LocalDateTime createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:dd")
     @Column(name = "dt_modified", insertable = false)
     protected LocalDateTime modifiedAt;
 
-    @JsonIgnore
-    @Column(name = "tx_creator", nullable = false, updatable = false, length = SizeOf.Text.Max.USERNAME)
+    @Column(name = "tx_creator", nullable = false, updatable = false, length = Validation.User.MAX_LEN_USERNAME)
     protected String creator;
 
-    @JsonIgnore
-    @Column(name = "tx_modifier", insertable = false, length = SizeOf.Text.Max.USERNAME)
+    @Column(name = "tx_modifier", insertable = false, length = Validation.User.MAX_LEN_USERNAME)
     protected String modifier;
 
     @ColumnDefault("'0'")
@@ -52,6 +47,7 @@ public abstract class BaseEntity<ID> implements Entity, Identifiable<ID>, Create
 
     @PrePersist
     public void prePersist() {
+
         this.createdAt = LocalDateTime.now();
         this.creator = "[ANONYMOUS]";
     }
@@ -66,14 +62,14 @@ public abstract class BaseEntity<ID> implements Entity, Identifiable<ID>, Create
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BaseEntity<ID> baseEntity = (BaseEntity<ID>) o;
-        return Objects.equals(getId(), baseEntity.getId());
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        BaseEntity<?> baseEntity = (BaseEntity<?>) o;
+        return getId() != null && Objects.equals(getId(), baseEntity.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return getClass().hashCode();
     }
 
 }

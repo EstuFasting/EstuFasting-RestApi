@@ -1,6 +1,6 @@
 package edu.estu.estufastingrestapi.core.model.entities.abstracts;
 
-public interface SoftDeletable extends Deletable {
+public interface SoftDeletable extends Entity {
 
     Character getDeleted();
 

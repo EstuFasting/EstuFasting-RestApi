@@ -12,11 +12,11 @@ public abstract class ApiResponse {
     private final LocalDateTime timestamp;
     private String message;
 
-    public ApiResponse() {
+    protected ApiResponse() {
         this.timestamp = LocalDateTime.now();
     }
 
-    public ApiResponse(String message) {
+    protected ApiResponse(String message) {
         this();
         this.message = message;
     }

@@ -1,12 +1,7 @@
 package edu.estu.estufastingrestapi.core.model.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
+import edu.estu.estufastingrestapi.core.model.constants.Validation;
 import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.Deletable;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,43 +33,39 @@ import java.util.UUID;
 )
 @SQLDelete(sql = "UPDATE tb_user SET is_deleted = '1' WHERE id_user=?")
 @Inheritance(strategy = InheritanceType.JOINED)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class User extends BaseEntity<UUID> implements Readable, Deletable {
+public class User extends BaseEntity<UUID> {
 
     @Id
     @GeneratedValue
-    @Column(name = "id_user", updatable = false, nullable = false, length = SizeOf.Text.Max.UUID)
+    @Column(name = "id_user", updatable = false, nullable = false, length = Validation.Common.UUID)
     protected UUID id;
 
-    @Column(name = "uq_username", nullable = false, length = SizeOf.Text.Max.USERNAME)
+    @Column(name = "uq_username", nullable = false, length = Validation.User.MAX_LEN_USERNAME)
     protected String username;
 
     @Column(name = "uq_email", nullable = false)
     protected String email;
 
-    @Column(name = "uq_phone_number", length = SizeOf.Text.Max.PHONE_NUM)
+    @Column(name = "uq_phone_number", length = Validation.User.MAX_LEN_PHONE_NUM)
     protected String phoneNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rf_language", foreignKey = @ForeignKey(name = "fk_user_language"))
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     protected Language language;
 
-    @JsonIgnore
-    @Column(name = "tx_password", nullable = false, length = SizeOf.Text.Max.BCRYPT_PW)
+    @Column(name = "tx_password", nullable = false, length = Validation.User.MAX_LEN_BCRYPT_PW)
     protected String password;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     protected List<Password> passwords;
 
-    @Column(name = "tx_first_name", nullable = false, length = SizeOf.Text.Max.FIRST_NAME)
+    @Column(name = "tx_first_name", nullable = false, length = Validation.User.MAX_LEN_FIRST_NAME)
     protected String firstName;
 
-    @Column(name = "tx_last_name", nullable = false, length = SizeOf.Text.Max.LAST_NAME)
+    @Column(name = "tx_last_name", nullable = false, length = Validation.User.MAX_LEN_LAST_NAME)
     protected String lastName;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "dt_birth", nullable = false)
     protected LocalDate birthDate;
 
@@ -94,7 +85,7 @@ public class User extends BaseEntity<UUID> implements Readable, Deletable {
     @Column(name = "is_credentials_non_expired", insertable = false, nullable = false)
     protected boolean credentialsNonExpired;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "tb_user_role",
             joinColumns = @JoinColumn(name = "rf_user", nullable = false), foreignKey = @ForeignKey(name = "fk_user_role_user"),

@@ -1,15 +1,13 @@
 package edu.estu.estufastingrestapi.model.entities;
 
-import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.*;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
+import edu.estu.estufastingrestapi.core.model.constants.Validation;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.time.LocalTime;
 
 @Getter
@@ -19,14 +17,14 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "tb_meal")
-public class Meal extends BaseEntity<Integer> implements Creatable, Readable, Updatable, Deletable {
+public class Meal extends BaseEntity<Integer> {
 
     @Id
     @Column(name = "id_meal", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "uq_name", nullable = false, length = SizeOf.Text.Max.CUSTOMER_TYPE_NAME)
+    @Column(name = "uq_name", nullable = false, length = Validation.Meal.MEAL_NAME)
     private String name;
 
     @Column(name = "dt_start", nullable = false)

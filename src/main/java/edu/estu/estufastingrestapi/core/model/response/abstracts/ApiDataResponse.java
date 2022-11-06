@@ -3,16 +3,17 @@ package edu.estu.estufastingrestapi.core.model.response.abstracts;
 import lombok.Getter;
 
 @Getter
-public abstract class ApiDataResponse<DataType> extends ApiResponse {
 
-    private final DataType data;
+public abstract class ApiDataResponse<T> extends ApiResponse {
 
-    public ApiDataResponse(DataType data) {
+    private final T data;
+
+    protected ApiDataResponse(T data) {
         super();
         this.data = data;
     }
 
-    public ApiDataResponse(String message, DataType data) {
+    protected ApiDataResponse(String message, T data) {
         super(message);
         this.data = data;
     }

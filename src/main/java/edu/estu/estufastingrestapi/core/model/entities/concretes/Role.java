@@ -1,9 +1,7 @@
 package edu.estu.estufastingrestapi.core.model.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.*;
+import edu.estu.estufastingrestapi.core.model.constants.Validation;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +10,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -24,18 +21,17 @@ import java.util.Collection;
 @Entity
 @Table(name = "tb_role", uniqueConstraints = @UniqueConstraint(columnNames = "uq_name", name = "uk_role_name"))
 @SQLDelete(sql = "UPDATE tb_role SET is_deleted = '1' WHERE id_role=?")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Role extends BaseEntity<Integer> implements Creatable, Readable, Updatable, Deletable {
+public class Role extends BaseEntity<Integer> {
 
     @Id
     @Column(name = "id_role", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "uq_name", nullable = false, length = SizeOf.Text.Max.ROLE_NAME)
+    @Column(name = "uq_name", nullable = false, length = Validation.Role.MAX_LEN_NAME)
     private String name;
 
-    @Column(name = "uq_description", nullable = false, length = SizeOf.Text.Max.ROLE_NAME)
+    @Column(name = "uq_description", nullable = false, length = Validation.Role.MAX_LEN_DESC)
     private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)

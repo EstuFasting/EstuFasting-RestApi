@@ -1,15 +1,13 @@
 package edu.estu.estufastingrestapi.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import edu.estu.estufastingrestapi.core.model.constants.validation.SizeOf;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.Readable;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.*;
+import edu.estu.estufastingrestapi.core.model.constants.Validation;
+import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -21,14 +19,14 @@ import java.util.UUID;
 @Entity
 @Table(name = "tb_menu_item")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class MenuItem extends BaseEntity<UUID> implements Creatable, Readable, Updatable, Deletable {
+public class MenuItem extends BaseEntity<UUID> {
 
     @Id
     @Column(name = "id_menu", nullable = false)
     @GeneratedValue
     private UUID id;
 
-    @Column(name = "uq_name", nullable = false, length = SizeOf.Text.Max.MENU_ITEM_NAME)
+    @Column(name = "uq_name", nullable = false, length = Validation.MenuItem.MENU_ITEM_NAME)
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)

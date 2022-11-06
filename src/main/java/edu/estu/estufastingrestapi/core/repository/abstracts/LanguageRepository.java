@@ -8,7 +8,7 @@ import java.util.Optional;
 @Repository
 public interface LanguageRepository extends JpaRepositoryAdapter<Language, Integer> {
 
-    Optional<Language> findFirstByEnglishName(String englishName);
+    Optional<Language> findFirstByName(String englishName);
 
     Optional<Language> findFirstByLocalName(String localName);
 
