@@ -1,7 +1,7 @@
 package edu.estu.estufastingrestapi.model.entities;
 
-import edu.estu.estufastingrestapi.core.model.constants.Validation;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
+import edu.estu.estufastingrestapi.core.domain.constants.Validation;
+import edu.estu.estufastingrestapi.core.domain.entity.abstracts.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

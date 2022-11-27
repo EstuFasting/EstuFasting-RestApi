@@ -1,6 +1,6 @@
 package edu.estu.estufastingrestapi.core.repository.helper;
 
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.Entity;
+import edu.estu.estufastingrestapi.core.domain.entity.abstracts.Entity;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;

@@ -1,12 +1,12 @@
 package edu.estu.estufastingrestapi.core.service.abstracts.infrastructure;
 
-import edu.estu.estufastingrestapi.core.model.dto.abstraction.Dto;
-import edu.estu.estufastingrestapi.core.model.response.abstracts.ApiResponse;
+import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
+import edu.estu.estufastingrestapi.core.service.model.abstraction.IdentifiableModel;
 
 import javax.validation.Valid;
 
-public interface UpdatableService<DtoType extends Dto> extends EntityService {
+public interface UpdatableService<ModelType extends IdentifiableModel<?>> extends EntityService {
 
-    ApiResponse update(@Valid DtoType dto);
+    ApiResponse update(@Valid ModelType model);
 
 }

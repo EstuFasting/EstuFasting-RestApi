@@ -1,7 +1,7 @@
 package edu.estu.estufastingrestapi.core.api.controller.v1;
 
-import edu.estu.estufastingrestapi.core.model.response.error.ApiErrorResponse;
-import edu.estu.estufastingrestapi.core.model.response.helper.ResponseBuilder;
+import edu.estu.estufastingrestapi.core.api.common.ResponseBuilder;
+import edu.estu.estufastingrestapi.core.domain.response.error.ApiErrorResponse;
 import io.swagger.annotations.Api;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -32,8 +32,7 @@ public class MainController implements ErrorController {
                 .flatMap(sub -> Optional.of(Integer.parseInt(sub)))
                 .map(HttpStatus::resolve)
                 .orElse(HttpStatus.BAD_REQUEST);
-        return ResponseBuilder
-                .status(httpStatus)
+        return ResponseBuilder.status(httpStatus)
                 .body(new ApiErrorResponse());
     }
 

@@ -1,6 +1,6 @@
 package edu.estu.estufastingrestapi.core.repository.abstracts;
 
-import edu.estu.estufastingrestapi.core.model.entities.concretes.Password;
+import edu.estu.estufastingrestapi.core.domain.entity.concretes.Password;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;

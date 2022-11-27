@@ -1,8 +1,7 @@
 package edu.estu.estufastingrestapi.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import edu.estu.estufastingrestapi.core.model.constants.Validation;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
+import edu.estu.estufastingrestapi.core.domain.constants.Validation;
+import edu.estu.estufastingrestapi.core.domain.entity.abstracts.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_menu_item")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class MenuItem extends BaseEntity<UUID> {
 
     @Id

@@ -1,12 +1,14 @@
 package edu.estu.estufastingrestapi.core.service.abstracts.infrastructure;
 
-import edu.estu.estufastingrestapi.core.model.dto.pagerequest.PageRequestDto;
-import edu.estu.estufastingrestapi.core.model.response.abstracts.ApiResponse;
+import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
+import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
 
 import javax.validation.Valid;
 
-public interface ReadableService extends EntityService {
+public interface ReadableService<ID> extends EntityService {
 
-    <P> ApiResponse get(@Valid PageRequestDto dto, Class<P> projection);
+    <P> ApiResponse getById(ID id, Class<P> projection);
+
+    <P> ApiResponse get(@Valid PageRequestModel pageRequestModel, Class<P> projection);
 
 }

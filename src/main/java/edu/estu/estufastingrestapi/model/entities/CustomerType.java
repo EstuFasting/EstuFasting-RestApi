@@ -1,8 +1,7 @@
 package edu.estu.estufastingrestapi.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import edu.estu.estufastingrestapi.core.model.constants.Validation;
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.BaseEntity;
+import edu.estu.estufastingrestapi.core.domain.constants.Validation;
+import edu.estu.estufastingrestapi.core.domain.entity.abstracts.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_customer_type", uniqueConstraints = @UniqueConstraint(columnNames = "uq_name", name = "uk_customer_type_name"))
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CustomerType extends BaseEntity<Integer> {
 
     @Id

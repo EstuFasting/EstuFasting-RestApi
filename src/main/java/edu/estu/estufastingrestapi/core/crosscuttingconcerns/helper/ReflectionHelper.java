@@ -1,6 +1,7 @@
 package edu.estu.estufastingrestapi.core.crosscuttingconcerns.helper;
 
 import lombok.SneakyThrows;
+import lombok.experimental.UtilityClass;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -8,9 +9,10 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
+@UtilityClass
 public class ReflectionHelper {
 
-    public static List<Object> getArgsByAnnotation(Parameter[] params, Object[] args, Class<? extends Annotation> searchAnnotation) {
+    public List<Object> getArgsByAnnotation(Parameter[] params, Object[] args, Class<? extends Annotation> searchAnnotation) {
         List<Object> annotatedArgs = new ArrayList<>();
         for (int i = 0; i < args.length; i++)
             if (params[i].isAnnotationPresent(searchAnnotation))
@@ -18,7 +20,7 @@ public class ReflectionHelper {
         return annotatedArgs;
     }
 
-    public static <T extends Annotation> T getMethodAnnotation(Method method, Class<T> annotation) {
+    public <T extends Annotation> T getMethodAnnotation(Method method, Class<T> annotation) {
         return method.getAnnotation(annotation);
     }
 

@@ -1,7 +1,7 @@
 package edu.estu.estufastingrestapi.core.service.validation.annotations;
 
-import edu.estu.estufastingrestapi.core.model.entities.abstracts.Entity;
-import edu.estu.estufastingrestapi.core.model.response.helper.Msg;
+import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
+import edu.estu.estufastingrestapi.core.domain.entity.abstracts.Entity;
 import edu.estu.estufastingrestapi.core.service.validation.validators.ReferenceValidator;
 
 import javax.validation.Constraint;
@@ -24,7 +24,7 @@ public @interface Unique {
      */
     String fieldName() default "id";
 
-    String message() default Msg.IS_IN_USE;
+    String message() default MsgCode.VALIDATION_DEFAULT_UNIQUE;
 
     Class<? extends Payload>[] payload() default {};
 
