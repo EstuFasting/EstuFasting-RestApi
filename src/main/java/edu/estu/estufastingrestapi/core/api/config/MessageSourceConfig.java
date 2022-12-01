@@ -8,6 +8,8 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Locale;
+
 @Configuration
 public class MessageSourceConfig implements WebMvcConfigurer {
 
@@ -17,7 +19,7 @@ public class MessageSourceConfig implements WebMvcConfigurer {
         messageSource.setBasename("classpath:localization/messages");
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(3600);
-        messageSource.setUseCodeAsDefaultMessage(true);
+        messageSource.setDefaultLocale(Locale.ENGLISH);
         messageSource.setFallbackToSystemLocale(false);
         return messageSource;
     }

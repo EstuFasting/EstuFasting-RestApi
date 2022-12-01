@@ -28,3 +28,5 @@ public abstract class SuperAdminCreateMapStructMapper implements MapStructMapper
     public abstract SuperAdminCreateRequestModel mapReverse(SuperAdmin destination);
 
 }
+
+

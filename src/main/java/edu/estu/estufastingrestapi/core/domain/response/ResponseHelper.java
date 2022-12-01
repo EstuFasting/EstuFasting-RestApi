@@ -9,8 +9,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ResponseHelper {
 
-    public static ApiResponse getResponseBySuccess(boolean success) {
-        if (success) return new ApiSuccessResponse(MsgCode.COMMON_SUCCESS_UPDATED);
+    public static ApiResponse getResponseBySuccess(boolean success, String successMsgCode) {
+        if (success) return new ApiSuccessResponse(successMsgCode);
         return new ApiErrorResponse(MsgCode.COMMON_ERROR_INVALID);
     }
 

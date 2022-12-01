@@ -4,6 +4,8 @@ import edu.estu.estufastingrestapi.core.api.common.Origin;
 import edu.estu.estufastingrestapi.core.api.common.ResponseBuilder;
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.LogExecutionTime;
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Trimmed;
+import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Valid;
+import edu.estu.estufastingrestapi.core.domain.constants.UserRole;
 import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
 import edu.estu.estufastingrestapi.core.service.abstracts.SuperAdminService;
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
@@ -17,13 +19,15 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @LogExecutionTime
 @Trimmed
+@Validated
 
 @CrossOrigin(origins = Origin.LOCALHOST_3000)
 @RestController
@@ -33,40 +37,39 @@ public class SuperAdminController {
 
     private final SuperAdminService superAdminService;
 
+    @PreAuthorize("@securityChecker.isLoggedInUser(#username)")
     @GetMapping("/get/one/fully_joined/by_username")
     public ResponseEntity<ApiResponse> getOneFullyJoinedByUsername(@RequestParam String username) {
         return ResponseBuilder.status(HttpStatus.OK)
-                .body(superAdminService.getFullyJoinedByUsername(username, SuperAdminFullyJoinedProjection.class));
+                .body(superAdminService.getOneFullyJoinedByUsername(username, SuperAdminFullyJoinedProjection.class));
     }
 
-    @GetMapping("/get/one/semi_joined/by_id")
-    public ResponseEntity<ApiResponse> getOneSemiJoinedById(@RequestParam UUID id) {
+    @PreAuthorize("@securityChecker.isLoggedInUser(#username)")
+    @GetMapping("/get/one/semi_joined/by_username")
+    public ResponseEntity<ApiResponse> getOneSemiJoinedByUsername(@RequestParam String username) {
         return ResponseBuilder.status(HttpStatus.OK)
-                .body(superAdminService.getById(id, SuperAdminSemiJoinedProjection.class));
+                .body(superAdminService.getOneByProp(username, SuperAdminSemiJoinedProjection.class));
     }
 
+    @Secured(UserRole.Name.SUPER_ADMIN)
     @GetMapping("/get/list/quick")
-    public ResponseEntity<ApiResponse> getListQuick(@ModelAttribute PageRequestModel pageRequestModel) {
+    public ResponseEntity<ApiResponse> getListQuick(@ModelAttribute @Valid PageRequestModel pageRequestModel) {
         return ResponseBuilder.status(HttpStatus.OK)
-                .body(superAdminService.get(pageRequestModel, SuperAdminQuickProjection.class));
+                .body(superAdminService.getList(pageRequestModel, SuperAdminQuickProjection.class));
     }
 
+    @Secured(UserRole.Name.SUPER_ADMIN)
     @GetMapping("/get/list/semi_joined")
-    public ResponseEntity<ApiResponse> getListSemiJoined(@ModelAttribute PageRequestModel pageRequestModel) {
+    public ResponseEntity<ApiResponse> getListSemiJoined(@ModelAttribute @Valid PageRequestModel pageRequestModel) {
         return ResponseBuilder.status(HttpStatus.OK)
-                .body(superAdminService.get(pageRequestModel, SuperAdminSemiJoinedProjection.class));
+                .body(superAdminService.getList(pageRequestModel, SuperAdminSemiJoinedProjection.class));
     }
 
+    @PreAuthorize("!@securityChecker.isLoggedInUser(#model.username)")
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> create(@RequestBody SuperAdminCreateRequestModel model) {
+    public ResponseEntity<ApiResponse> create(@RequestBody @Valid SuperAdminCreateRequestModel model) {
         return ResponseBuilder.status(HttpStatus.OK)
                 .body(superAdminService.create(model));
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<ApiResponse> update(@RequestBody SuperAdminUpdateRequestModel model) {
-        return ResponseBuilder.status(HttpStatus.OK)
-                .body(superAdminService.update(model));
     }
 
 }

@@ -5,8 +5,7 @@ import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiSubError;
 
 public record ApiValidationError(
         String field,
-        @JsonFormat(shape = JsonFormat.Shape.STRING)
-        Object rejectedValue,
+        @JsonFormat(shape = JsonFormat.Shape.STRING) Object rejectedValue,
         String code,
         String message) implements ApiSubError {
 }

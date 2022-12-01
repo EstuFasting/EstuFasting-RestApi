@@ -27,6 +27,20 @@ public class SecurityConfig {
     private final JwtTokenFilter jwtTokenFilter;
     private final UserDetailsService userDetailsService;
 
+    private static final String[] AUTH_WHITELIST = {
+            // Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+    };
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -45,8 +59,9 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
 
                 .authorizeRequests()
+
                 .antMatchers("/**").permitAll()
-                .anyRequest().anonymous()
+                .antMatchers(AUTH_WHITELIST).permitAll()
 
                 .and().exceptionHandling()
                 .authenticationEntryPoint((request, response, ex) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage()))

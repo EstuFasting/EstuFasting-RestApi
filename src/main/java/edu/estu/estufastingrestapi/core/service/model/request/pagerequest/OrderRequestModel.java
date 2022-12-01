@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.domain.Sort;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class OrderRequestModel implements RequestModel {
 
-    @NotBlank(message = MsgCode.VALIDATION_ORDER_PROPERTY_NOT_BLANK)
+    @NotEmpty(message = MsgCode.VALIDATION_ORDER_PROPERTY_NOT_BLANK)
     private String property;
 
     private Sort.Direction direction = Sort.Direction.ASC;

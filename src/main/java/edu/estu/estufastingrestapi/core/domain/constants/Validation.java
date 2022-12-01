@@ -17,6 +17,7 @@ public class Validation {
     @UtilityClass
     public class Customer {
         public static final int CUSTOMER_CARD_NO = Pow2.L63;
+        public static final int CUSTOMER_TCKN = 11;
     }
 
     @UtilityClass
@@ -66,24 +67,8 @@ public class Validation {
         public final String RGX_DATE = "^\\d{4}-\\d{2}-\\d{2}$";
         public final String RGX_JSON_OBJECT = "\\{.+:.+(,.+:.+)*}";
         public final String RGX_JSON_ARRAY = "\\[(\\{.+:.+(,.+:.+)*})*]";
-        public final String RGX_ALPHA_2 = "\\w{2}";
-        public final String RGX_ALPHA_3 = "\\w{3}";
-    }
-
-    @UtilityClass
-    public class Country {
-        public final int MIN_LEN_LONG_NAME = 2;
-        public final int MIN_LEN_SHORT_NAME = 2;
-
-        public final int MAX_LEN_SHORT_NAME = Pow2.L31;
-        public final int MAX_LEN_LONG_NAME = Pow2.L127;
-        public final int MAX_LEN_ALPHA_2 = 2;
-        public final int MAX_LEN_ALPHA_3 = 3;
-        public final int MAX_LEN_NUMERIC = 3;
-        public final int MAX_LEN_DIAL_CODE = 9;
-
-        public static final String RGX_DIAL_CODE = "^\\+(\\d{1,3}\\-)?(\\d{1,4})$";
-        public static final String RGX_NUMERIC = "\\d{3}";
+        public final String RGX_ALPHA_2 = "[A-Z]{2}";
+        public final String RGX_ALPHA_3 = "[A-Z]{3}";
     }
 
     @UtilityClass
@@ -119,20 +104,12 @@ public class Validation {
     }
 
     @UtilityClass
-    public class TimeZone {
-        public final int MIN_LEN_NAME = 2;
-
-        public final int MAX_LEN_NAME = Pow2.L31;
-    }
-
-    @UtilityClass
     public class User {
-        public final int MIN_LEN_USERNAME = 2;
+
         public final int MIN_LEN_FIRST_NAME = 2;
         public final int MIN_LEN_LAST_NAME = 2;
         public final int MIN_LEN_PW = 6;
 
-        public final int MAX_LEN_USERNAME = 255;
         public final int MAX_LEN_EMAIL = 255;
         public final int MAX_LEN_PHONE_NUM = 17;
         public final int MAX_LEN_FIRST_NAME = Pow2.L31;
@@ -141,7 +118,7 @@ public class Validation {
         public final int MAX_LEN_PW = Pow2.L63;
 
         public final String RGX_EMAIL = "^\\w+(\\.\\w+)*@\\p{javaLowerCase}{2,12}+(\\.\\p{javaLowerCase}{2,6})+$";
-        public final String RGX_PHONE_NUMBER = "^((\\+?\\d{1,3})?0?[\\s-]?)?\\(?0?\\d{3}\\)?[\\s-]?\\d{3}[\\s-]?\\d{2}[\\s-]?\\d{2}$";
+        public final String RGX_PHONE_NUMBER = "^\\+\\d{1,3}-\\d{3}-\\d{3}-\\d{2}-\\d{2}$";
     }
 
 }

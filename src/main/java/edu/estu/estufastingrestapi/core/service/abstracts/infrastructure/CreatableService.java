@@ -7,6 +7,6 @@ import javax.validation.Valid;
 
 public interface CreatableService<ModelType extends RequestModel> extends EntityService {
 
-    ApiResponse create(@Valid ModelType model);
+    ApiResponse create(ModelType model);
 
 }

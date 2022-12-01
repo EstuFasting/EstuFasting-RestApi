@@ -3,6 +3,8 @@ package edu.estu.estufastingrestapi.core.service.model.request.language;
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
 import edu.estu.estufastingrestapi.core.domain.constants.Validation;
 import edu.estu.estufastingrestapi.core.service.model.request.abstraction.RequestModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +37,5 @@ public class LanguageCreateRequestModel implements RequestModel {
     private String alpha3T;
 
     private Boolean unlisted;
-
-    private Boolean supported;
 
 }

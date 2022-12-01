@@ -1,7 +1,8 @@
 package edu.estu.estufastingrestapi.core.api.security;
 
-import edu.estu.estufastingrestapi.core.domain.entity.concretes.User;
-import edu.estu.estufastingrestapi.core.repository.abstracts.UserRepository;
+import edu.estu.estufastingrestapi.core.service.abstracts.UserService;
+import edu.estu.estufastingrestapi.core.service.model.response.user.UserAuthProjection;
+import edu.estu.estufastingrestapi.core.service.objectmapping.manual.concretes.GrantedAuthorityMapper;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +24,8 @@ import java.io.IOException;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtTokenHelper jwtTokenHelper;
-    private final UserRepository userRepository;
+    private final UserService userService;
+    private final GrantedAuthorityMapper grantedAuthorityMapper;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain chain) throws ServletException, IOException {
@@ -33,14 +35,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        String[] destructuredHeader = header.split(" ");
-        String token = destructuredHeader[1];
-        String scheme = destructuredHeader[0];
+        String token = header.substring(JwtTokenHelper.SCHEME.length() + 1);
+        jwtTokenHelper.valid(token);
+        String username = jwtTokenHelper.getClaim(token, Claims::getSubject);
 
-        jwtTokenHelper.valid(scheme, token);
-
-        User user = userRepository.findFirstByEmail(jwtTokenHelper.getClaim(token, Claims::getSubject), User.class).orElse(new User());
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        UserAuthProjection user = userService.getUserAuthoritiesByUsername(username);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, grantedAuthorityMapper.map(user.getRoles()));
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         chain.doFilter(request, response);

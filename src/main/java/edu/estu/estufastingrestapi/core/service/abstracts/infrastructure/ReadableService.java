@@ -5,10 +5,10 @@ import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRe
 
 import javax.validation.Valid;
 
-public interface ReadableService<ID> extends EntityService {
+public interface ReadableService<Prop> extends EntityService {
 
-    <P> ApiResponse getById(ID id, Class<P> projection);
+    <P> ApiResponse getOneByProp(Prop prop, Class<P> projection);
 
-    <P> ApiResponse get(@Valid PageRequestModel pageRequestModel, Class<P> projection);
+    <P> ApiResponse getList(PageRequestModel pageRequestModel, Class<P> projection);
 
 }

@@ -68,8 +68,7 @@ public interface DataSeeder<T extends Identifiable<ID>, ID> extends Ordered {
         Collection<T> data = getData();
         if (data == null) return;
 
-        getRepository().saveAllAndFlush(data);
-        getEntityManager().unwrap(Session.class).clear();
+        getRepository().saveAll(data);
 
         setSeeded(true);
     }

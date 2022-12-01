@@ -5,7 +5,6 @@ import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
 import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
 import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiSubError;
 import edu.estu.estufastingrestapi.core.domain.response.error.ApiErrorDataResponse;
-import edu.estu.estufastingrestapi.core.domain.response.error.ApiErrorResponse;
 import edu.estu.estufastingrestapi.core.domain.response.error.suberrors.ApiValidationError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
@@ -55,7 +54,7 @@ public class ValidationExceptionHandlers {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
         return ResponseBuilder.status(HttpStatus.BAD_REQUEST)
-                .body(new ApiErrorResponse(ex.getLocalizedMessage()));
+                .body(new ApiErrorDataResponse<>(ex, ex.getLocalizedMessage()));
     }
 
 }

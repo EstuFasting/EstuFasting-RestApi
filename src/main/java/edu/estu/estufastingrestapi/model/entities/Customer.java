@@ -19,16 +19,22 @@ import javax.persistence.*;
 @Entity
 @Table(
         name = "tb_customer",
-        uniqueConstraints = @UniqueConstraint(columnNames = "uq_card_no", name = "uk_customer_card_no")
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "uq_card_no", name = "uk_customer_card_no"),
+                @UniqueConstraint(columnNames = "uq_tckn", name = "uk_customer_tckn"),
+        }
 )
 @PrimaryKeyJoinColumn(name = "id_user", referencedColumnName = "id_user", foreignKey = @ForeignKey(name = "fk_customer_user"))
 @OnDelete(action = OnDeleteAction.CASCADE)
 public class Customer extends User {
 
+    @Column(name = "uq_tckn", nullable = false, length = Validation.Customer.CUSTOMER_TCKN)
+    private String tckn;
+
     @Column(name = "uq_card_no", nullable = false, length = Validation.Customer.CUSTOMER_CARD_NO)
     private String cardNo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rf_customer_type", nullable = false, foreignKey = @ForeignKey(name = "fk_customer_customer_type"))
     private CustomerType type;
 

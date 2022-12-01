@@ -4,19 +4,26 @@ import edu.estu.estufastingrestapi.core.api.common.Origin;
 import edu.estu.estufastingrestapi.core.api.common.ResponseBuilder;
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.LogExecutionTime;
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Trimmed;
+import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Valid;
+import edu.estu.estufastingrestapi.core.domain.constants.UserRole;
 import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
 import edu.estu.estufastingrestapi.core.service.abstracts.LanguageService;
+import edu.estu.estufastingrestapi.core.service.model.request.language.LanguageCreateRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.response.language.LanguageQuickProjection;
 import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @LogExecutionTime
 @Trimmed
+@Validated
 
 @CrossOrigin(origins = Origin.LOCALHOST_3000)
 @RestController
@@ -26,22 +33,32 @@ public class LanguageController {
 
     private final LanguageService languageService;
 
+    @Secured(UserRole.Name.USER)
     @GetMapping("/get/by_id")
     public ResponseEntity<ApiResponse> getById(@RequestParam Integer id) {
         return ResponseBuilder.status(HttpStatus.OK)
-                .body(languageService.getById(id, LanguageQuickProjection.class));
+                .body(languageService.getOneByProp(id, LanguageQuickProjection.class));
     }
 
+    @Secured(UserRole.Name.USER)
     @GetMapping("/get/by_alpha_2")
     public ResponseEntity<ApiResponse> getByAlpha2(@RequestParam String alpha2) {
         return ResponseBuilder.status(HttpStatus.OK)
                 .body(languageService.getByAlpha2(alpha2, LanguageQuickProjection.class));
     }
 
+    @Secured(UserRole.Name.USER)
     @GetMapping("/get")
-    public ResponseEntity<ApiResponse> get(@ModelAttribute PageRequestModel pageRequestModel) {
+    public ResponseEntity<ApiResponse> get(@ModelAttribute @Valid PageRequestModel pageRequestModel) {
         return ResponseBuilder.status(HttpStatus.OK)
-                .body(languageService.get(pageRequestModel, LanguageQuickProjection.class));
+                .body(languageService.getList(pageRequestModel, LanguageQuickProjection.class));
+    }
+
+    @Secured(UserRole.Name.SUPER_ADMIN)
+    @PostMapping("/create")
+    public ResponseEntity<ApiResponse> create(@RequestBody @Valid LanguageCreateRequestModel model) {
+        return ResponseBuilder.status(HttpStatus.OK)
+                .body(languageService.create(model));
     }
 
 }

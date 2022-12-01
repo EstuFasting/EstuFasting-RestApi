@@ -29,8 +29,8 @@ public class LogExecutionTimeInterceptor {
         Object ret = pjp.proceed();
         long end = (System.nanoTime() - start) / 1000000;
         String logMessage = "Method executed in " + end + " milliseconds: " + pjp.toShortString();
-        if (end < 250) log.info(logMessage);
-        else if (end > 250 && end < 1000) log.warn(logMessage);
+        if (end < 400) log.info(logMessage);
+        else if (end > 400 && end < 1200) log.warn(logMessage);
         else log.error(logMessage);
         return ret;
     }

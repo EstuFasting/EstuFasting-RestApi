@@ -3,6 +3,7 @@ package edu.estu.estufastingrestapi.core.service.model.request.language;
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
 import edu.estu.estufastingrestapi.core.domain.constants.Validation;
 import edu.estu.estufastingrestapi.core.service.model.abstraction.IdentifiableModel;
+import edu.estu.estufastingrestapi.core.service.model.request.abstraction.RequestModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LanguageUpdateRequestModel implements IdentifiableModel<Integer> {
+public class LanguageUpdateRequestModel implements IdentifiableModel<Integer>, RequestModel {
 
     @NotNull(message = MsgCode.VALIDATION_LANGUAGE_ID_NOT_NULL)
     private Integer id;

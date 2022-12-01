@@ -8,10 +8,13 @@ import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.Updatab
 import edu.estu.estufastingrestapi.core.service.model.request.superadmin.SuperAdminCreateRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.request.superadmin.SuperAdminUpdateRequestModel;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
-public interface SuperAdminService extends EntityService, CreatableService<SuperAdminCreateRequestModel>, ReadableService<UUID>, UpdatableService<SuperAdminUpdateRequestModel> {
-    <P> ApiResponse getFullyJoinedById(UUID id, Class<P> projection);
+public interface SuperAdminService extends EntityService, CreatableService<SuperAdminCreateRequestModel>, ReadableService<String>, UpdatableService<SuperAdminUpdateRequestModel> {
 
-    <P> ApiResponse getFullyJoinedByUsername(String username, Class<P> projection);
+    @Override
+    <P> ApiResponse getOneByProp(String username, Class<P> projection);
+
+    <P> ApiResponse getOneFullyJoinedByUsername(String username, Class<P> projection);
 }

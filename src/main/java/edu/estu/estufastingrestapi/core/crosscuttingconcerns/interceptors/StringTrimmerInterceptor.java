@@ -28,7 +28,7 @@ public class StringTrimmerInterceptor {
         Object[] args = pjp.getArgs();
         for (Object object : args) {
             if (!(object instanceof RequestModel)) continue;
-            for (Method getter : object.getClass().getDeclaredMethods())
+            for (Method getter : object.getClass().getMethods())
                 if (getter.getReturnType() == String.class && getter.getParameterCount() == 0 && Modifier.isPublic(getter.getModifiers()) && getter.getName().startsWith("get")) {
                     Object value = getter.invoke(object);
                     if (value == null) continue;

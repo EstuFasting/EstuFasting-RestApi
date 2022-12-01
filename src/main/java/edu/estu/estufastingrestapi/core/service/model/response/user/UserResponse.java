@@ -20,8 +20,6 @@ public class UserResponse extends AuditedResponse {
 
     private String username;
 
-    private String email;
-
     private String phoneNumber;
 
     private LanguageResponse language;

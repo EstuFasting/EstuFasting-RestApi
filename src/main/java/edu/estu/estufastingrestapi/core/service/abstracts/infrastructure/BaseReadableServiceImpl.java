@@ -1,5 +1,6 @@
 package edu.estu.estufastingrestapi.core.service.abstracts.infrastructure;
 
+import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Valid;
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
 import edu.estu.estufastingrestapi.core.domain.entity.abstracts.Identifiable;
 import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
@@ -24,12 +25,12 @@ public abstract class BaseReadableServiceImpl<E extends Identifiable<ID>, ID> im
     protected Mapper<PageRequestModel, PageRequest> pageRequestMapper;
 
     @Override
-    public <P> ApiResponse getById(ID id, Class<P> projection) {
+    public <P> ApiResponse getOneByProp(ID id, Class<P> projection) {
         return new ApiSuccessDataResponse<>(repository.findById(id, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
     @Override
-    public <P> ApiResponse get(PageRequestModel pageRequestModel, Class<P> projection) {
+    public <P> ApiResponse getList(PageRequestModel pageRequestModel, Class<P> projection) {
         return new ApiSuccessDataResponse<>(repository.findAllBy(pageRequestMapper.map(pageRequestModel), projection), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 

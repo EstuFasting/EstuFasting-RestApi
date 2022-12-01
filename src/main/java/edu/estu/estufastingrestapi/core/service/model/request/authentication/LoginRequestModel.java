@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -15,10 +15,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class LoginRequestModel implements RequestModel {
 
-    @NotBlank(message = MsgCode.VALIDATION_USER_USER_NAME_NOT_BLANK)
+    @NotEmpty(message = MsgCode.VALIDATION_USER_EMAIL_NOT_EMPTY)
     private String username;
 
-    @NotBlank(message = MsgCode.VALIDATION_USER_PASSWORD_NOT_BLANK)
+    @NotEmpty(message = MsgCode.VALIDATION_USER_PASSWORD_NOT_EMPTY)
     private String password;
 
 }

@@ -31,7 +31,7 @@ public class FallbackExceptionHandlers {
     @ExceptionHandler(PropertyReferenceException.class)
     public ResponseEntity<ApiResponse> handlePropertyReferenceException(PropertyReferenceException exception) {
         return ResponseBuilder.status(HttpStatus.BAD_REQUEST)
-                .body(new ApiErrorResponse(exception.getLocalizedMessage()));
+                .body(new ApiErrorDataResponse<>(exception, exception.getLocalizedMessage()));
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
@@ -98,7 +98,7 @@ public class FallbackExceptionHandlers {
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<ApiResponse> handleThrowable(Throwable exception) {
         return ResponseBuilder.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiErrorDataResponse<>(exception));
+                .body(new ApiErrorDataResponse<>(exception, exception.getMessage()));
     }
 
 }

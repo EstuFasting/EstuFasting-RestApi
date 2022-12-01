@@ -1,16 +1,28 @@
-package edu.estu.estufastingrestapi.core.crosscuttingconcerns.helper;
+package edu.estu.estufastingrestapi.core.domain.helper;
 
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @UtilityClass
 public class ReflectionHelper {
+
+    public <T> Optional<T> getFieldOfTheObjectByGetter(Object object, String getterName, Class<T> fieldType) {
+        if (object == null || getterName == null || fieldType == null) return Optional.empty();
+        try {
+            Method getter = object.getClass().getMethod(getterName);
+            return Optional.ofNullable(fieldType.cast(getter.invoke(object)));
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException exception) {
+            return Optional.empty();
+        }
+    }
 
     public List<Object> getArgsByAnnotation(Parameter[] params, Object[] args, Class<? extends Annotation> searchAnnotation) {
         List<Object> annotatedArgs = new ArrayList<>();

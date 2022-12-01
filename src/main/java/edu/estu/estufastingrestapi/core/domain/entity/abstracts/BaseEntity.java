@@ -30,10 +30,10 @@ public abstract class BaseEntity<ID> implements Entity, Identifiable<ID>, Create
     @Column(name = "dt_modified", insertable = false)
     protected LocalDateTime modifiedAt;
 
-    @Column(name = "tx_creator", nullable = false, updatable = false, length = Validation.User.MAX_LEN_USERNAME)
+    @Column(name = "tx_creator", nullable = false, updatable = false, length = Validation.User.MAX_LEN_EMAIL)
     protected String creator;
 
-    @Column(name = "tx_modifier", insertable = false, length = Validation.User.MAX_LEN_USERNAME)
+    @Column(name = "tx_modifier", insertable = false, length = Validation.User.MAX_LEN_EMAIL)
     protected String modifier;
 
     @Override

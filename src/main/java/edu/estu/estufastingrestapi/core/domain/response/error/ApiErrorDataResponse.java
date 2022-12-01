@@ -13,10 +13,9 @@ public class ApiErrorDataResponse<T> extends ApiDataResponse<T> {
     private final String debugMessage;
 
     public ApiErrorDataResponse(Throwable ex, String debugMessage, T data, String messageCode, Object... args) {
-        super(data, messageCode, args);
+        super(data, messageCode == null ? MsgCode.COMMON_ERROR : messageCode, args);
         this.debugMessage = debugMessage;
-        ex.printStackTrace();
-        log.info("An exception has handled: " + ex.getClass().getSimpleName());
+        log.info("An exception has handled: " + ex.getClass().getName());
     }
 
     public ApiErrorDataResponse(Throwable ex, String debugMessage, T data, String messageCode) {

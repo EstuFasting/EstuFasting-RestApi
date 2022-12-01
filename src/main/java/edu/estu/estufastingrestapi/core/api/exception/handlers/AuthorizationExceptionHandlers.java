@@ -11,11 +11,10 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import java.nio.file.AccessDeniedException;
 
 @RequiredArgsConstructor
 @ControllerAdvice
@@ -25,13 +24,13 @@ public class AuthorizationExceptionHandlers {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiResponse> handleAccessDeniedException(AccessDeniedException exception) {
         return ResponseBuilder.status(HttpStatus.UNAUTHORIZED)
-                .body(new ApiErrorDataResponse<>(exception, exception.getMessage()));
+                .body(new ApiErrorDataResponse<>(exception, MsgCode.SECURITY_ACCESS_IS_DENIED));
     }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ApiResponse> handleAuthenticationException(AuthenticationException exception) {
         return ResponseBuilder.status(HttpStatus.UNAUTHORIZED)
-                .body(new ApiErrorDataResponse<>(exception, exception.getMessage()));
+                .body(new ApiErrorDataResponse<>(exception, MsgCode.SECURITY_ACCESS_IS_DENIED));
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
@@ -43,7 +42,7 @@ public class AuthorizationExceptionHandlers {
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<ApiResponse> handleJwtException(JwtException exception) {
         return ResponseBuilder.status(HttpStatus.UNAUTHORIZED)
-                .body(new ApiErrorDataResponse<>(exception, exception.getMessage()));
+                .body(new ApiErrorDataResponse<>(exception, MsgCode.COMMON_ERROR_AUTHENTICATION));
     }
 
 }

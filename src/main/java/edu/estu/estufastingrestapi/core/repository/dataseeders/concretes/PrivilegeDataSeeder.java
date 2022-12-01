@@ -20,17 +20,6 @@ public class PrivilegeDataSeeder extends BaseDataSeeder<Privilege, Integer> {
 
     @Override
     public void setData() {
-
-        Metamodel metamodel = entityManager.getMetamodel();
-        Set<EntityType<?>> entities = metamodel.getEntities();
-
-        entities.forEach(e -> {
-            data.add(new Privilege(null, "C_" + e.getName(), "c_" + e.getName().toLowerCase()));
-            data.add(new Privilege(null, "R_" + e.getName(), "r_" + e.getName().toLowerCase()));
-            data.add(new Privilege(null, "U_" + e.getName(), "u_" + e.getName().toLowerCase()));
-            data.add(new Privilege(null, "D_" + e.getName(), "d_" + e.getName().toLowerCase()));
-        });
-
     }
 
 }
