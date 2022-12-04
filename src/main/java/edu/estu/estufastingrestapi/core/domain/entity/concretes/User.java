@@ -54,13 +54,13 @@ public class User extends BaseEntity<UUID> {
     @Column(name = "tx_password", nullable = false, length = Validation.User.MAX_LEN_BCRYPT_PW)
     protected String password;
 
-    @Column(name = "tx_first_name", nullable = false, length = Validation.User.MAX_LEN_FIRST_NAME)
+    @Column(name = "tx_first_name", nullable = true, length = Validation.User.MAX_LEN_FIRST_NAME)
     protected String firstName;
 
-    @Column(name = "tx_last_name", nullable = false, length = Validation.User.MAX_LEN_LAST_NAME)
+    @Column(name = "tx_last_name", nullable = true, length = Validation.User.MAX_LEN_LAST_NAME)
     protected String lastName;
 
-    @Column(name = "dt_birth", nullable = false)
+    @Column(name = "dt_birth", nullable = true)
     protected LocalDate birthDate;
 
     @ColumnDefault("'1'")

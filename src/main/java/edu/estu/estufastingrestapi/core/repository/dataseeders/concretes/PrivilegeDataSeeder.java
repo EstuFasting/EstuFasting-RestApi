@@ -5,10 +5,6 @@ import edu.estu.estufastingrestapi.core.repository.dataseeders.abstracts.BaseDat
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
-import java.util.Set;
-
 @Component
 @RequiredArgsConstructor
 public class PrivilegeDataSeeder extends BaseDataSeeder<Privilege, Integer> {

@@ -3,7 +3,6 @@ package edu.estu.estufastingrestapi.core.repository.dataseeders.abstracts;
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.LogExecutionTime;
 import edu.estu.estufastingrestapi.core.domain.entity.abstracts.Identifiable;
 import edu.estu.estufastingrestapi.core.repository.abstracts.JpaRepositoryAdapter;
-import org.hibernate.Session;
 import org.springframework.core.Ordered;
 
 import javax.persistence.EntityManager;
@@ -65,6 +64,7 @@ public interface DataSeeder<T extends Identifiable<ID>, ID> extends Ordered {
         if (!seedCondition()) return;
 
         setData();
+        for (T datum : getData()) datum.setId(null);
         Collection<T> data = getData();
         if (data == null) return;
 

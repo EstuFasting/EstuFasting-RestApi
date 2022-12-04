@@ -17,7 +17,7 @@ public class PrincipalHelper {
     }
 
     public static Optional<String> getCurrentUsername() {
-        return ReflectionHelper.getFieldOfTheObjectByGetter(getCurrentPrincipal().orElse(null), "getUsername", String.class);
+        return ReflectionHelper.getFieldValueByGetter(getCurrentPrincipal().orElse(null), "getUsername", String.class);
     }
 
 }

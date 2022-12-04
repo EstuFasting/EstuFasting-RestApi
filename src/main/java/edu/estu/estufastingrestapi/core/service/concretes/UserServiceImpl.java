@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public <P> ApiResponse getOneByProp(String username, Class<P> projection) {
+    public <P> ApiResponse getOneByIdentifier(String username, Class<P> projection) {
         return new ApiSuccessDataResponse<>(userRepository.findFullyJoinedByUsername(username, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
@@ -69,42 +69,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ApiResponse updateUsername(String username, String newUsername) {
-        return ResponseHelper.getResponseBySuccess(userRepository.updateUserName(username, newUsername) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(userRepository.updateUserName(username, newUsername), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updatePhoneNumber(String username, String phoneNumber) {
-        return ResponseHelper.getResponseBySuccess(userRepository.updatePhoneNumber(phoneNumber, username) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(userRepository.updatePhoneNumber(phoneNumber, username), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateLanguage(String username, Integer languageId) {
-        return ResponseHelper.getResponseBySuccess(userRepository.updateLanguage(username, languageId) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(userRepository.updateLanguage(username, languageId), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updatePassword(String username, String password) {
-        return ResponseHelper.getResponseBySuccess(userRepository.updatePassword(username, password) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(userRepository.updatePassword(username, password), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateFirstName(String username, String firstname) {
-        return ResponseHelper.getResponseBySuccess(userRepository.updateFirstName(username, firstname) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(userRepository.updateFirstName(username, firstname), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateLastName(String username, String lastName) {
-        return ResponseHelper.getResponseBySuccess(userRepository.updateLastName(username, lastName) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(userRepository.updateLastName(username, lastName), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateBirthDate(String username, LocalDate birthDate) {
-        return ResponseHelper.getResponseBySuccess(userRepository.updateBirthDate(username, birthDate) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(userRepository.updateBirthDate(username, birthDate), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateEnabled(String username, Boolean enabled) {
-        return ResponseHelper.getResponseBySuccess(userRepository.updateEnabled(username, enabled) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(userRepository.updateEnabled(username, enabled), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override

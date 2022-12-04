@@ -14,7 +14,16 @@ import java.util.Optional;
 @UtilityClass
 public class ReflectionHelper {
 
-    public <T> Optional<T> getFieldOfTheObjectByGetter(Object object, String getterName, Class<T> fieldType) {
+    @SneakyThrows(IllegalAccessException.class)
+    public <T> Optional<T> getStaticFieldValueByName(String fieldName, Class<T> fieldType, Class<?> clazz) {
+        try {
+            return Optional.ofNullable(fieldType.cast(clazz.getField(fieldName).get(null)));
+        } catch (NoSuchFieldException exception) {
+            return Optional.empty();
+        }
+    }
+
+    public <T> Optional<T> getFieldValueByGetter(Object object, String getterName, Class<T> fieldType) {
         if (object == null || getterName == null || fieldType == null) return Optional.empty();
         try {
             Method getter = object.getClass().getMethod(getterName);
@@ -49,6 +58,10 @@ public class ReflectionHelper {
     @SneakyThrows
     public Method getMethod(Class<?> clazz, String methodName, Class<?>[] paramTypes) {
         return clazz.getMethod(methodName, paramTypes);
+    }
+
+    public String getGetterNameOfFieldName(String fieldName) {
+        return "get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
     }
 
 }

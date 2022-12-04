@@ -22,7 +22,7 @@ public class SpringFoxConfig {
         return new ApiInfo("Template Project Rest APIs",
                 "APIs for Template Project.",
                 "0.0.1-SNAPSHOT",
-                "Terms of service",
+                "Terms of catering",
                 new Contact("Semih Kayan", "https://github.com/CosmicDust19", "smh01.2019@gmail.com"),
                 "MIT License", "https://github.com/CosmicDust19",
                 Collections.emptyList());
@@ -50,7 +50,7 @@ public class SpringFoxConfig {
                 .build();
     }
 
-    List<SecurityReference> defaultAuth() {
+    private List<SecurityReference> defaultAuth() {
         AuthorizationScope authorizationScope
                 = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];

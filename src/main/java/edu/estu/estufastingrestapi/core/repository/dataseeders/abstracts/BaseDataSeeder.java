@@ -8,8 +8,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 @Getter
 @Setter
@@ -18,7 +18,7 @@ public abstract class BaseDataSeeder<T extends Identifiable<ID>, ID> implements 
     protected boolean seeded;
 
     @Setter(AccessLevel.NONE)
-    protected Collection<T> data = new ArrayList<>();
+    protected Collection<T> data = new LinkedList<>();
 
     @Setter(onMethod = @__(@Autowired))
     protected JpaRepositoryAdapter<T, ID> repository;

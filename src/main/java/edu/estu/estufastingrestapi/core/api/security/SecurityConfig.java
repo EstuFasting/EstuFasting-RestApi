@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
 
     private final JwtTokenFilter jwtTokenFilter;
@@ -56,12 +56,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http.cors().and().csrf().disable().authorizeRequests()
 
-                .authorizeRequests()
-
-                .antMatchers("/**").permitAll()
                 .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers("/**").permitAll()
 
                 .and().exceptionHandling()
                 .authenticationEntryPoint((request, response, ex) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage()))

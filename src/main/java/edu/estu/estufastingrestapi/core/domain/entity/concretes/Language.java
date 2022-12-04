@@ -3,6 +3,7 @@ package edu.estu.estufastingrestapi.core.domain.entity.concretes;
 import edu.estu.estufastingrestapi.core.domain.constants.UK;
 import edu.estu.estufastingrestapi.core.domain.constants.Validation;
 import edu.estu.estufastingrestapi.core.domain.entity.abstracts.BaseEntity;
+import edu.estu.estufastingrestapi.core.domain.entity.listeners.LanguageListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ import javax.persistence.*;
                 @UniqueConstraint(columnNames = "uq_alpha_3T", name = UK.LANGUAGE_ALPHA_3T)
         }
 )
+@EntityListeners(LanguageListener.class)
 public class Language extends BaseEntity<Integer> {
 
     @Id

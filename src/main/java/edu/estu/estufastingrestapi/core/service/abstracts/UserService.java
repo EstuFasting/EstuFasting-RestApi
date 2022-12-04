@@ -15,7 +15,7 @@ public interface UserService extends UserDetailsService, EntityService, Readable
     String getPasswordByUsername(String username);
 
     @Override
-    <P> ApiResponse getOneByProp(String username, Class<P> projection);
+    <P> ApiResponse getOneByIdentifier(String username, Class<P> projection);
 
     UserAuthProjection getUserForLogin(String username);
 

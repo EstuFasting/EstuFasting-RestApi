@@ -1,6 +1,5 @@
 package edu.estu.estufastingrestapi.core.service.concretes;
 
-import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Valid;
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
 import edu.estu.estufastingrestapi.core.domain.entity.concretes.SuperAdmin;
 import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
@@ -8,7 +7,6 @@ import edu.estu.estufastingrestapi.core.domain.response.success.ApiSuccessDataRe
 import edu.estu.estufastingrestapi.core.repository.abstracts.SuperAdminRepository;
 import edu.estu.estufastingrestapi.core.repository.abstracts.UserRepository;
 import edu.estu.estufastingrestapi.core.service.abstracts.SuperAdminService;
-import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.BaseReadableServiceImpl;
 import edu.estu.estufastingrestapi.core.service.helper.EntityServiceHelper;
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.request.superadmin.SuperAdminCreateRequestModel;
@@ -21,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -32,11 +29,11 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     private final UserRepository userRepository;
     private final MapStructMapper<SuperAdminCreateRequestModel, SuperAdmin> createRequestMapper;
     private final MapStructMapper<SuperAdminUpdateRequestModel, SuperAdmin> updateRequestMapper;
-    private final MapStructMapper<SuperAdminResponse, SuperAdmin> superAdminResponseMapper;
+    private final MapStructMapper<SuperAdmin, SuperAdminResponse> superAdminResponseMapper;
     private final PageRequestMapper pageRequestMapper;
 
     @Override
-    public <P> ApiResponse getOneByProp(String username, Class<P> projection) {
+    public <P> ApiResponse getOneByIdentifier(String username, Class<P> projection) {
         return new ApiSuccessDataResponse<>(superAdminRepository.findFullyJoinedByUsername(username, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
@@ -53,13 +50,13 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Override
     public ApiResponse create(SuperAdminCreateRequestModel model) {
         SuperAdmin saved = EntityServiceHelper.saveAndRefresh(superAdminRepository, createRequestMapper.map(model));
-        return new ApiSuccessDataResponse<>(superAdminResponseMapper.mapReverse(saved), MsgCode.COMMON_SUCCESS_SAVED);
+        return new ApiSuccessDataResponse<>(superAdminResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
     }
 
     @Override
-    public ApiResponse update(SuperAdminUpdateRequestModel model) {
+    public ApiResponse updateChanges(SuperAdminUpdateRequestModel model) {
         SuperAdmin updated = updateRequestMapper.mapInto(model, superAdminRepository.getReferenceById(userRepository.findIdByUsername(model.getUsername())));
-        return new ApiSuccessDataResponse<>(superAdminResponseMapper.mapReverse(updated), MsgCode.COMMON_SUCCESS_UPDATED);
+        return new ApiSuccessDataResponse<>(superAdminResponseMapper.map(updated), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
 }

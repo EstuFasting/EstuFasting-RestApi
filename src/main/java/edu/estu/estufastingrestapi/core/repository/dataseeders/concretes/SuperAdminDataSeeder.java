@@ -1,6 +1,5 @@
 package edu.estu.estufastingrestapi.core.repository.dataseeders.concretes;
 
-import edu.estu.estufastingrestapi.core.domain.constants.UserRole;
 import edu.estu.estufastingrestapi.core.domain.entity.abstracts.Identifiable;
 import edu.estu.estufastingrestapi.core.domain.entity.concretes.Language;
 import edu.estu.estufastingrestapi.core.domain.entity.concretes.SuperAdmin;
@@ -9,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.UUID;
 
 @Component
@@ -26,7 +24,6 @@ public class SuperAdminDataSeeder extends BaseDataSeeder<SuperAdmin, UUID> {
         user.setLastName("Kayan");
         user.setPassword("$2a$12$ed4t6xhT2/9kQ6rM1YZ5uuNCbsKP55O8PGZ94hTD0nojJbh/GYELa");
         user.setLanguage(Identifiable.getInstance(Language::new, 59));
-        user.setRoles(Set.of(UserRole.getInstanceByName(UserRole.Name.SUPER_ADMIN)));
         data.add(user);
     }
 

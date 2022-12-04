@@ -14,4 +14,8 @@ public class ResponseHelper {
         return new ApiErrorResponse(MsgCode.COMMON_ERROR_INVALID);
     }
 
+    public static ApiResponse getResponseBySuccess(int numOfRowsToBeUpdated, String successMsgCode) {
+        return getResponseBySuccess(numOfRowsToBeUpdated > 0, successMsgCode);
+    }
+
 }

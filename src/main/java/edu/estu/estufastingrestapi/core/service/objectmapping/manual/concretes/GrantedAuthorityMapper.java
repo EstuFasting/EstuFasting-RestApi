@@ -24,11 +24,11 @@ public class GrantedAuthorityMapper implements Mapper<Collection<?>, List<Grante
         if (source == null) return new ArrayList<>();
         List<GrantedAuthority> destination = new ArrayList<>(source.size() * APPROXIMATE_AUTHORITY_COUNT_PER_ROLE);
         for (Object roleObj : source) {
-            String roleName = ReflectionHelper.getFieldOfTheObjectByGetter(roleObj, "getName", String.class).orElse(null);
-            Iterable<?> privileges = ReflectionHelper.getFieldOfTheObjectByGetter(roleObj, "getPrivileges", Iterable.class).orElse(new ArrayList<>(0));
+            String roleName = ReflectionHelper.getFieldValueByGetter(roleObj, "getName", String.class).orElse(null);
+            Iterable<?> privileges = ReflectionHelper.getFieldValueByGetter(roleObj, "getPrivileges", Iterable.class).orElse(new ArrayList<>(0));
             destination.add(new SimpleGrantedAuthority(roleName));
             for (Object privilege : privileges) {
-                String privName = ReflectionHelper.getFieldOfTheObjectByGetter(privilege, "getName", String.class).orElse(null);
+                String privName = ReflectionHelper.getFieldValueByGetter(privilege, "getName", String.class).orElse(null);
                 destination.add(new SimpleGrantedAuthority(privName));
             }
         }

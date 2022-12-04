@@ -16,25 +16,40 @@ public class Validation {
 
     @UtilityClass
     public class Customer {
-        public static final int CUSTOMER_CARD_NO = Pow2.L63;
-        public static final int CUSTOMER_TCKN = 11;
+        public static final int LEN_CUSTOMER_TCKN = 11;
+        public static final int MIN_CUSTOMER_CARD_NO = 7;
+        public static final int MAX_CUSTOMER_CARD_NO = Pow2.L63;
     }
 
     @UtilityClass
     public class CustomerType {
-        public static final int CUSTOMER_TYPE_NAME = Pow2.L63;
-        public static final int CUSTOMER_TYPE_DESC = Pow2.L511;
+        public static final int MIN_CUSTOMER_TYPE_NAME = 2;
+        public static final int MIN_CUSTOMER_TYPE_DESC = 10;
+
+        public static final int MAX_CUSTOMER_TYPE_NAME = Pow2.L63;
+        public static final int MAX_CUSTOMER_TYPE_DESC = Pow2.L511;
     }
 
     @UtilityClass
     public class DiningHall {
-        public static final int DINING_HALL_NAME = Pow2.L63;
-        public static final int DINING_HALL_ADDRESS_LINE = Pow2.L255;
+        public static final int MIN_LEN_DINING_HALL_NAME = 5;
+        public static final int MIN_LEN_DINING_HALL_DESC = 10;
+        public static final int MIN_LEN_DINING_HALL_ADDRESS_LINE = 10;
+        public static final int MIN_LEN_DINING_HALL_LATITUDE = -90;
+        public static final int MIN_LEN_DINING_HALL_LONGITUDE = -180;
+        public static final int MIN_LEN_DINING_HALL_CAPACITY = 1;
+
+        public static final int MAX_LEN_DINING_HALL_NAME = Pow2.L63;
+        public static final int MAX_LEN_DINING_HALL_DESC = Pow2.L127;
+        public static final int MAX_LEN_DINING_HALL_ADDRESS_LINE = Pow2.L511;
+        public static final int MAX_LEN_DINING_HALL_LATITUDE = 90;
+        public static final int MAX_LEN_DINING_HALL_LONGITUDE = 180;
     }
 
     @UtilityClass
     public class Meal {
-        public static final int MEAL_NAME = Pow2.L63;
+        public static final int MIN_LEN_MEAL_NAME = 2;
+        public static final int MAX_LEN_MEAL_NAME = Pow2.L63;
     }
 
     @UtilityClass
@@ -43,7 +58,9 @@ public class Validation {
 
     @UtilityClass
     public class MenuItem {
-        public static final int MENU_ITEM_NAME = Pow2.L63;
+        public static final int MIN_LEN_MENU_ITEM_NAME = 1;
+        public static final int MIN_VAL_CALORIES = 0;
+        public static final int MAX_LEN_MENU_ITEM_NAME = Pow2.L63;
     }
 
     @UtilityClass
@@ -51,7 +68,9 @@ public class Validation {
     }
 
     @UtilityClass
-    public class Service {
+    public class Catering {
+        public final int MIN_VAL_PRICE = 10;
+        public final int MAX_SIZE_MENU_ITEM_COUNT = 10;
     }
 
     @UtilityClass

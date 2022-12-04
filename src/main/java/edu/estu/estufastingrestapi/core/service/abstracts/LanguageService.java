@@ -1,14 +1,14 @@
 package edu.estu.estufastingrestapi.core.service.abstracts;
 
 import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
+import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.AtOnceUpdatableService;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.CreatableService;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.EntityService;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.ReadableService;
-import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.UpdatableService;
 import edu.estu.estufastingrestapi.core.service.model.request.language.LanguageCreateRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.request.language.LanguageUpdateRequestModel;
 
-public interface LanguageService extends EntityService, CreatableService<LanguageCreateRequestModel>, ReadableService<Integer>, UpdatableService<LanguageUpdateRequestModel> {
+public interface LanguageService extends EntityService, CreatableService<LanguageCreateRequestModel>, ReadableService<Integer>, AtOnceUpdatableService<LanguageUpdateRequestModel> {
     <P> ApiResponse getByAlpha2(String alpha2, Class<P> projection);
 
     ApiResponse updateName(Integer id, String name);

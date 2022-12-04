@@ -5,5 +5,5 @@ import edu.estu.estufastingrestapi.core.service.model.response.language.Language
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public abstract class LanguageResponseMapStructMapper implements MapStructMapper<LanguageResponse, Language> {
+public abstract class LanguageResponseMapStructMapper implements MapStructMapper<Language, LanguageResponse> {
 }

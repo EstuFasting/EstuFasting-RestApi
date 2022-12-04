@@ -4,7 +4,6 @@ import edu.estu.estufastingrestapi.core.api.common.ResponseBuilder;
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
 import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
 import edu.estu.estufastingrestapi.core.domain.response.error.ApiErrorDataResponse;
-import edu.estu.estufastingrestapi.core.domain.response.error.ApiErrorResponse;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.core.Ordered;

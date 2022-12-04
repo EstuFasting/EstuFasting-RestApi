@@ -10,13 +10,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse extends AuditedResponse {
+
+    private UUID id;
 
     private String username;
 
@@ -31,6 +34,6 @@ public class UserResponse extends AuditedResponse {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    private List<RoleResponse> roles;
+    private Set<RoleResponse> roles;
 
 }

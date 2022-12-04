@@ -27,7 +27,7 @@ public class LanguageServiceImpl extends BaseReadableServiceImpl<Language, Integ
     private final LanguageRepository languageRepository;
     private final MapStructMapper<LanguageCreateRequestModel, Language> createRequestMapper;
     private final MapStructMapper<LanguageUpdateRequestModel, Language> updateRequestMapper;
-    private final MapStructMapper<LanguageResponse, Language> languageResponseMapper;
+    private final MapStructMapper<Language, LanguageResponse> languageResponseMapper;
 
     @Override
     public <P> ApiResponse getByAlpha2(String alpha2, Class<P> projection) {
@@ -37,42 +37,42 @@ public class LanguageServiceImpl extends BaseReadableServiceImpl<Language, Integ
     @Override
     public ApiResponse create(LanguageCreateRequestModel model) {
         Language saved = EntityServiceHelper.saveAndRefresh(languageRepository, createRequestMapper.map(model));
-        return new ApiSuccessDataResponse<>(languageResponseMapper.mapReverse(saved), MsgCode.COMMON_SUCCESS_SAVED);
+        return new ApiSuccessDataResponse<>(languageResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
     }
 
     @Override
-    public ApiResponse update(LanguageUpdateRequestModel model) {
-        return new ApiSuccessDataResponse<>(languageResponseMapper.mapReverse(updateRequestMapper.mapInto(model, repository.getReferenceById(model.getId()))), MsgCode.COMMON_SUCCESS_UPDATED);
+    public ApiResponse updateChanges(LanguageUpdateRequestModel model) {
+        return new ApiSuccessDataResponse<>(languageResponseMapper.map(updateRequestMapper.mapInto(model, repository.getReferenceById(model.getId()))), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateName(Integer id, String name) {
-        return ResponseHelper.getResponseBySuccess(languageRepository.updateName(id, name) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(languageRepository.updateName(id, name), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateLocalName(Integer id, String localName) {
-        return ResponseHelper.getResponseBySuccess(languageRepository.updateLocalName(id, localName) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(languageRepository.updateLocalName(id, localName), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateAlpha2(Integer id, String alpha2) {
-        return ResponseHelper.getResponseBySuccess(languageRepository.updateAlpha2(id, alpha2) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(languageRepository.updateAlpha2(id, alpha2), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateAlpha3T(Integer id, String alpha3T) {
-        return ResponseHelper.getResponseBySuccess(languageRepository.updateAlpha3T(id, alpha3T) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(languageRepository.updateAlpha3T(id, alpha3T), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateUnlisted(Integer id, Boolean unlisted) {
-        return ResponseHelper.getResponseBySuccess(languageRepository.updateUnlisted(id, unlisted) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(languageRepository.updateUnlisted(id, unlisted), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
     public ApiResponse updateSupported(Integer id, Boolean unlisted) {
-        return ResponseHelper.getResponseBySuccess(languageRepository.updateSupported(id, unlisted) > 0, MsgCode.COMMON_SUCCESS_UPDATED);
+        return ResponseHelper.getResponseBySuccess(languageRepository.updateSupported(id, unlisted), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
 }
