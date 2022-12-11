@@ -12,7 +12,7 @@ import java.util.*;
 @UtilityClass
 public class RoleConst {
 
-    private final Map<String, Role> CACHE;
+    private final Map<Integer, Role> CACHE;
     public final String HIERARCHY_STRING;
 
     static {
@@ -23,7 +23,7 @@ public class RoleConst {
                 int id = idField.getInt(null);
                 String name = ReflectionHelper.getStaticFieldValueByName(idField.getName(), String.class, Name.class).orElse(null);
                 String desc = ReflectionHelper.getStaticFieldValueByName(idField.getName(), String.class, Desc.class).orElse(null);
-                CACHE.put(name, new Role(id, name, desc, null));
+                CACHE.put(id, new Role(id, name, desc, null));
 
                 Integer order = ReflectionHelper.getStaticFieldValueByName(idField.getName(), Integer.class, HierarchicalOrder.class).orElse(null);
                 orders.put(name, order);
@@ -50,8 +50,8 @@ public class RoleConst {
         return CACHE.values();
     }
 
-    public Role getInstanceByName(String name) {
-        Role cache = CACHE.get(name);
+    public Role getInstanceById(Integer id) {
+        Role cache = CACHE.get(id);
         return new Role(cache.getId(), cache.getName(), cache.getDescription(), null);
     }
 

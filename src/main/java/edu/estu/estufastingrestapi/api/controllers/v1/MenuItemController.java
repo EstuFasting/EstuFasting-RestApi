@@ -6,11 +6,13 @@ import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.LogExec
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Trimmed;
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Valid;
 import edu.estu.estufastingrestapi.core.domain.constants.RoleConst;
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
 import edu.estu.estufastingrestapi.service.abstracts.MenuItemService;
+import edu.estu.estufastingrestapi.service.model.request.menuitem.MenuItemCreateRequestModel;
 import edu.estu.estufastingrestapi.service.model.response.menuitem.MenuItemQuickProjection;
 import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +37,7 @@ public class MenuItemController {
 
     @Secured({RoleConst.Name.STAFF, RoleConst.Name.SUPER_ADMIN})
     @GetMapping("/get/one/fully_joined/by_id")
-    public ResponseEntity<ApiResponse> getOneFullyJoined(
+    public ResponseEntity<ServiceResponse> getOneFullyJoined(
             @RequestParam UUID id) {
         return ResponseBuilder.status(HttpStatus.OK)
                 .body(menuItemService.getOneByIdentifier(id, MenuItemQuickProjection.class));
@@ -43,10 +45,33 @@ public class MenuItemController {
 
     @Secured({RoleConst.Name.STAFF, RoleConst.Name.SUPER_ADMIN})
     @GetMapping("/get/list/quick")
-    public ResponseEntity<ApiResponse> getListQuick(
+    public ResponseEntity<ServiceResponse> getListQuick(
             @ModelAttribute @Valid PageRequestModel pageRequestModel) {
         return ResponseBuilder.status(HttpStatus.OK)
                 .body(menuItemService.getList(pageRequestModel, MenuItemQuickProjection.class));
+    }
+
+    @Secured({RoleConst.Name.STAFF, RoleConst.Name.SUPER_ADMIN})
+    @PostMapping("/create")
+    public ResponseEntity<ServiceResponse> create(@RequestBody @Valid MenuItemCreateRequestModel model) {
+        return ResponseBuilder.status(HttpStatus.CREATED)
+                .body(menuItemService.create(model));
+    }
+
+    @Secured(RoleConst.Name.SUPER_ADMIN)
+    @PutMapping("/update/name")
+    public ResponseEntity<ServiceResponse> updateName(
+            @RequestParam UUID id, @RequestParam String name) {
+        return ResponseBuilder.status(HttpStatus.OK)
+                .body(menuItemService.updateName(id, name));
+    }
+
+    @Secured(RoleConst.Name.SUPER_ADMIN)
+    @PutMapping("/update/calories")
+    public ResponseEntity<ServiceResponse> updateCalories(
+            @RequestParam UUID id, @RequestParam Integer calories) {
+        return ResponseBuilder.status(HttpStatus.OK)
+                .body(menuItemService.updateCalories(id, calories));
     }
 
 }

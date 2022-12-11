@@ -1,10 +1,11 @@
 package edu.estu.estufastingrestapi.core.service.abstracts;
 
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.DeletableService;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.EntityService;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.ReadableService;
 import edu.estu.estufastingrestapi.core.service.model.response.user.UserAuthProjection;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceDataResponse;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.time.LocalDate;
@@ -15,29 +16,29 @@ public interface UserService extends UserDetailsService, EntityService, Readable
     String getPasswordByUsername(String username);
 
     @Override
-    <P> ApiResponse getOneByIdentifier(String username, Class<P> projection);
+    <P> ServiceDataResponse<P> getOneByIdentifier(String username, Class<P> projection);
 
     UserAuthProjection getUserForLogin(String username);
 
     UserAuthProjection getUserAuthoritiesByUsername(String username);
 
-    <P> ApiResponse getOneFullyJoinedByUsername(String username, Class<P> projection);
+    <P> ServiceResponse getOneFullyJoinedByUsername(String username, Class<P> projection);
 
-    ApiResponse deleteByUsername(String username);
+    ServiceResponse deleteByUsername(String username);
 
-    ApiResponse updateUsername(String username, String newUsername);
+    ServiceResponse updateUsername(String username, String newUsername);
 
-    ApiResponse updatePhoneNumber(String username, String phoneNumber);
+    ServiceResponse updatePhoneNumber(String username, String phoneNumber);
 
-    ApiResponse updateLanguage(String username, Integer languageId);
+    ServiceResponse updateLanguage(String username, Integer languageId);
 
-    ApiResponse updatePassword(String username, String password);
+    ServiceResponse updatePassword(String username, String password);
 
-    ApiResponse updateFirstName(String username, String firstname);
+    ServiceResponse updateFirstName(String username, String firstname);
 
-    ApiResponse updateLastName(String username, String lastName);
+    ServiceResponse updateLastName(String username, String lastName);
 
-    ApiResponse updateBirthDate(String username, LocalDate birthDate);
+    ServiceResponse updateBirthDate(String username, LocalDate birthDate);
 
-    ApiResponse updateEnabled(String username, Boolean enabled);
+    ServiceResponse updateEnabled(String username, Boolean enabled);
 }

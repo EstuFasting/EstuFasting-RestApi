@@ -10,6 +10,7 @@ public class ScheduleConflictCheckValidator extends BaseConstraintValidator<Sche
 
     @Override
     public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
+        if (object == null) return true;
         String startGetterName = ReflectionHelper.getGetterNameOfFieldName(constraint.startFieldName());
         String endGetterName = ReflectionHelper.getGetterNameOfFieldName(constraint.endFieldName());
         Comparable start = ReflectionHelper.getFieldValueByGetter(object, startGetterName, Comparable.class).orElse(null);

@@ -33,23 +33,17 @@ import java.util.Set;
 @OnDelete(action = OnDeleteAction.CASCADE)
 public class Customer extends User {
 
-    @Column(name = "uq_tckn", nullable = true, length = Validation.Customer.LEN_CUSTOMER_TCKN)
+    @Column(name = "uq_tckn", nullable = false, length = Validation.Customer.MAX_LEN_TCKN)
     private String tckn;
 
-    @Column(name = "uq_card_no", nullable = true, length = Validation.Customer.MAX_CUSTOMER_CARD_NO)
+    @Column(name = "uq_card_no", nullable = true, length = Validation.Customer.MAX_LEN_CARD_NO)
     private String cardNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rf_customer_type", nullable = false, foreignKey = @ForeignKey(name = FK.CUSTOMER_CUSTOMER_TYPE))
     private CustomerType type;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "tb_reservation",
-            joinColumns = @JoinColumn(name = "rf_customer", nullable = false), foreignKey = @ForeignKey(name = FK.RESERVATION_CUSTOMER),
-            inverseJoinColumns = @JoinColumn(name = "rf_catering", nullable = false), inverseForeignKey = @ForeignKey(name = FK.RESERVATION_SERVICE),
-            uniqueConstraints = @UniqueConstraint(name = UK.RESERVATION_CUSTOMER_CATERING, columnNames = {"rf_customer", "rf_catering"})
-    )
-    private Set<Catering> reservations;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private Set<Reservation> reservations;
 
 }

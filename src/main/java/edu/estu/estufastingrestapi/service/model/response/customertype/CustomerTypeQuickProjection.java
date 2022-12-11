@@ -1,8 +1,8 @@
 package edu.estu.estufastingrestapi.service.model.response.customertype;
 
-public interface CustomerTypeQuickProjection {
+import edu.estu.estufastingrestapi.core.service.model.abstraction.IdentifiableModel;
 
-    Integer getId();
+public interface CustomerTypeQuickProjection extends IdentifiableModel<Integer> {
 
     String getName();
 

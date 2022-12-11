@@ -29,7 +29,7 @@ public interface CateringRepository extends JpaRepositoryAdapter<Catering, UUID>
 
     @Query(value = """
                 select c from Catering c
-                left join fetch c.customers
+                left join fetch c.reservations
                 where c.id = :id
             """)
     <P> Optional<P> findCateringCustomersById(UUID id, Class<P> projection);

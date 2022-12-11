@@ -18,7 +18,7 @@ public class FK {
     public final String MENU_CATERING = "fk_menu_catering";
     public final String CUSTOMER_USER = "fk_customer_user";
     public final String CUSTOMER_CUSTOMER_TYPE = "fk_customer_customer_type";
-    public final String RESERVATION_SERVICE = "fk_reservation_service";
+    public final String RESERVATION_CATERING = "fk_reservation_catering";
     public final String RESERVATION_CUSTOMER = "fk_reservation_customer";
     public final String DINING_HALL_MEAL_MEAL = "fk_dining_hall_meal_meal";
     public final String DINING_HALL_MEAL_DINING_HALL = "fk_dining_hall_meal_dining_hall";

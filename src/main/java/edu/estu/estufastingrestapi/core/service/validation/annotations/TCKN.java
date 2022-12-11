@@ -5,6 +5,7 @@ import edu.estu.estufastingrestapi.core.service.validation.validators.TCKNLongVa
 import edu.estu.estufastingrestapi.core.service.validation.validators.TCKNStringValidator;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -19,5 +20,9 @@ import java.lang.annotation.Target;
 public @interface TCKN {
 
     String message() default MsgCode.VALIDATION_DEFAULT_TCKN;
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 
 }

@@ -3,8 +3,8 @@ package edu.estu.estufastingrestapi.core.api.exception.handlers;
 import edu.estu.estufastingrestapi.core.api.common.ResponseBuilder;
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
 import edu.estu.estufastingrestapi.core.domain.helper.StringTools;
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
-import edu.estu.estufastingrestapi.core.domain.response.error.ApiErrorDataResponse;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
+import edu.estu.estufastingrestapi.core.service.response.error.ServiceErrorDataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,34 +25,34 @@ import java.util.Optional;
 public class PersistenceExceptionHandlers {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ApiResponse> handleEntityNotFoundException(EntityNotFoundException exception) {
+    public ResponseEntity<ServiceResponse> handleEntityNotFoundException(EntityNotFoundException exception) {
         return ResponseBuilder.status(HttpStatus.BAD_REQUEST)
-                .body(new ApiErrorDataResponse<>(exception, exception.getMessage() == null ? MsgCode.COMMON_ERROR_ENTITY_NOT_FOUND : exception.getMessage()));
+                .body(new ServiceErrorDataResponse<>(exception, exception.getMessage() == null ? MsgCode.COMMON_ERROR_ENTITY_NOT_FOUND : exception.getMessage()));
     }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
-    public ResponseEntity<ApiResponse> handleEmptyResultDataAccessException(EmptyResultDataAccessException exception) {
+    public ResponseEntity<ServiceResponse> handleEmptyResultDataAccessException(EmptyResultDataAccessException exception) {
         return ResponseBuilder.status(HttpStatus.BAD_REQUEST)
-                .body(new ApiErrorDataResponse<>(exception, MsgCode.COMMON_ERROR_ENTITY_NOT_FOUND));
+                .body(new ServiceErrorDataResponse<>(exception, MsgCode.COMMON_ERROR_ENTITY_NOT_FOUND));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ApiResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+    public ResponseEntity<ServiceResponse> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
         Optional<String> code = StringTools.extract(exception.getMessage(), "(fk|uk)_\\w+_\\w+").map(m -> "DB.Constraint." + m);
         return ResponseBuilder.status(HttpStatus.BAD_REQUEST)
-                .body(new ApiErrorDataResponse<>(exception, code.orElse(MsgCode.COMMON_ERROR_INVALID)));
+                .body(new ServiceErrorDataResponse<>(exception, code.orElse(MsgCode.COMMON_ERROR_INVALID)));
     }
 
     @ExceptionHandler(PersistenceException.class)
-    public ResponseEntity<ApiResponse> handlePersistenceException(PersistenceException exception) {
+    public ResponseEntity<ServiceResponse> handlePersistenceException(PersistenceException exception) {
         return ResponseBuilder.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiErrorDataResponse<>(exception, exception.getLocalizedMessage()));
+                .body(new ServiceErrorDataResponse<>(exception, exception.getLocalizedMessage()));
     }
 
     @ExceptionHandler(SQLException.class)
-    public ResponseEntity<ApiResponse> handleSQLException(SQLException exception) {
+    public ResponseEntity<ServiceResponse> handleSQLException(SQLException exception) {
         return ResponseBuilder.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiErrorDataResponse<>(exception, exception.getLocalizedMessage()));
+                .body(new ServiceErrorDataResponse<>(exception, exception.getLocalizedMessage()));
     }
 
 }

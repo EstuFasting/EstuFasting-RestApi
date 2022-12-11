@@ -13,11 +13,11 @@ import org.mapstruct.MappingTarget;
 public abstract class CateringCreateMapStructMapper implements MapStructMapper<CateringCreateRequestModel, Catering> {
 
     @Mapping(target = "meal.id", source = "source.mealId")
-    @Mapping(target = "menuItems", expression = "java(MappingHelper.mapFromIdList(source.getMenuItemIds(), edu.estu.estufastingrestapi.entities.concretes.MenuItem::new))")
+    @Mapping(target = "menuItems", expression = "java(MappingHelper.mapFromIds(source.getMenuItemIds(), MenuItem::new, java.util.HashSet::new))")
     public abstract Catering map(CateringCreateRequestModel source);
 
     @Mapping(target = "meal.id", source = "source.mealId")
-    @Mapping(target = "menuItems", expression = "java(MappingHelper.mapFromIdList(source.getMenuItemIds(), MenuItem::new))")
+    @Mapping(target = "menuItems", expression = "java(MappingHelper.mapFromIds(source.getMenuItemIds(), MenuItem::new, java.util.HashSet::new))")
     public abstract Catering mapInto(CateringCreateRequestModel source, @MappingTarget Catering destination);
 
     @Mapping(target = "mealId", source = "destination.meal.id")

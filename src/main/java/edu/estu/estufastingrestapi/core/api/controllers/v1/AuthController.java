@@ -7,11 +7,15 @@ import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.LogExec
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Trimmed;
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Valid;
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
-import edu.estu.estufastingrestapi.core.domain.response.success.ApiSuccessDataResponse;
+import edu.estu.estufastingrestapi.core.domain.constants.Validation;
 import edu.estu.estufastingrestapi.core.service.abstracts.UserService;
-import edu.estu.estufastingrestapi.core.service.model.request.authentication.LoginRequestModel;
+import edu.estu.estufastingrestapi.core.service.model.request.authentication.CustomerLoginRequestModel;
+import edu.estu.estufastingrestapi.core.service.model.request.authentication.ManagementLoginRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.response.user.UserAuthProjection;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
+import edu.estu.estufastingrestapi.core.service.response.success.ServiceSuccessDataResponse;
+import edu.estu.estufastingrestapi.entities.concretes.Customer;
+import edu.estu.estufastingrestapi.service.abstracts.CustomerService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -37,21 +41,39 @@ public class AuthController {
 
     private final JwtTokenHelper jwtTokenHelper;
     private final UserService userService;
+    private final CustomerService customerService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @PostMapping("/login")
+    @PostMapping("/login/management")
     @SneakyThrows(BadCredentialsException.class)
-    public ResponseEntity<ApiResponse> login(@RequestBody @Valid LoginRequestModel loginRequestModel) {
-        String password = userService.getPasswordByUsername(loginRequestModel.getUsername());
+    public ResponseEntity<ServiceResponse> loginManagement(@RequestBody @Valid ManagementLoginRequestModel model) {
+        String password = userService.getPasswordByUsername(model.getIdentifier());
         if (password == null)
             throw new UsernameNotFoundException(MsgCode.SECURITY_LOGIN_WRONG_USERNAME);
-        if (!passwordEncoder.matches(loginRequestModel.getPassword(), password))
+        if (!passwordEncoder.matches(model.getPassword(), password))
             throw new BadCredentialsException(MsgCode.SECURITY_LOGIN_WRONG_PASSWORD);
 
-        UserAuthProjection user = userService.getUserForLogin(loginRequestModel.getUsername());
+        UserAuthProjection user = userService.getUserForLogin(model.getIdentifier());
         return ResponseBuilder.status(HttpStatus.OK)
                 .header(HttpHeaders.AUTHORIZATION, jwtTokenHelper.generateToken(user))
-                .body(new ApiSuccessDataResponse<>(user, MsgCode.COMMON_SUCCESS));
+                .body(new ServiceSuccessDataResponse<>(user, MsgCode.COMMON_SUCCESS));
     }
 
+    @PostMapping("/login/customer")
+    @SneakyThrows(BadCredentialsException.class)
+    public ResponseEntity<ServiceResponse> loginCustomer(@RequestBody @Valid CustomerLoginRequestModel model) {
+        boolean tckn = model.getIdentifier().matches(Validation.Customer.RGX_TCKN);
+        Customer customer;
+        if (tckn) customer = customerService.getByTckn(model.getIdentifier()).getData();
+        else customer = customerService.getOneByIdentifier(model.getIdentifier(), Customer.class).getData();
+        if (customer.getPassword() == null)
+            throw new UsernameNotFoundException(MsgCode.SECURITY_LOGIN_WRONG_USERNAME);
+        if (!passwordEncoder.matches(model.getPassword(), customer.getPassword()))
+            throw new BadCredentialsException(MsgCode.SECURITY_LOGIN_WRONG_PASSWORD);
+
+        UserAuthProjection user = userService.getUserForLogin(model.getIdentifier());
+        return ResponseBuilder.status(HttpStatus.OK)
+                .header(HttpHeaders.AUTHORIZATION, jwtTokenHelper.generateToken(user))
+                .body(new ServiceSuccessDataResponse<>(user, MsgCode.COMMON_SUCCESS));
+    }
 }

@@ -3,9 +3,7 @@ package edu.estu.estufastingrestapi.core.service.objectmapping;
 import edu.estu.estufastingrestapi.core.domain.entity.abstracts.Identifiable;
 import lombok.experimental.UtilityClass;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.function.Supplier;
 
 @UtilityClass
@@ -15,10 +13,11 @@ public class MappingHelper {
         return id != null ? Identifiable.getInstance(newSupp, id) : old;
     }
 
-    public <T extends Identifiable<ID>, ID> List<T> mapFromIdList(Collection<ID> ids, Supplier<T> entitySupp) {
-        if (ids == null || entitySupp == null) return new ArrayList<>();
-        List<T> entities = new ArrayList<>(ids.size());
-        for (ID id : ids) entities.add(Identifiable.getInstance(entitySupp, id));
+    public <T extends Identifiable<ID>, ID, C extends Collection<T>> C mapFromIds(Collection<ID> ids, Supplier<T> entitySupplier, Supplier<C> collectionSupplier) {
+        if (collectionSupplier == null) throw new IllegalArgumentException("Collection supplier must be given");
+        if (ids == null || entitySupplier == null) return collectionSupplier.get();
+        C entities = collectionSupplier.get();
+        for (ID id : ids) entities.add(Identifiable.getInstance(entitySupplier, id));
         return entities;
     }
 

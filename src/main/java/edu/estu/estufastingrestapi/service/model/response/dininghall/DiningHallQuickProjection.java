@@ -1,6 +1,8 @@
 package edu.estu.estufastingrestapi.service.model.response.dininghall;
 
-public interface DiningHallQuickProjection {
+import edu.estu.estufastingrestapi.core.service.model.abstraction.IdentifiableModel;
+
+public interface DiningHallQuickProjection extends IdentifiableModel<Integer> {
 
     String getName();
 

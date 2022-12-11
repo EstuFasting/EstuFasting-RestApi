@@ -1,12 +1,14 @@
 package edu.estu.estufastingrestapi.service.concretes;
 
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
-import edu.estu.estufastingrestapi.core.domain.response.ResponseHelper;
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
-import edu.estu.estufastingrestapi.core.domain.response.success.ApiSuccessDataResponse;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.BaseReadableServiceImpl;
 import edu.estu.estufastingrestapi.core.service.helper.EntityServiceHelper;
+import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceDataResponse;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
+import edu.estu.estufastingrestapi.core.service.response.helper.ResponseHelper;
+import edu.estu.estufastingrestapi.core.service.response.success.ServiceSuccessDataResponse;
 import edu.estu.estufastingrestapi.entities.concretes.DiningHall;
 import edu.estu.estufastingrestapi.repository.abstracts.DiningHallRepository;
 import edu.estu.estufastingrestapi.service.abstracts.DiningHallService;
@@ -28,53 +30,63 @@ public class DiningHallServiceImpl extends BaseReadableServiceImpl<DiningHall, I
     private final DiningHallCreateMapStructMapper diningHallCreateMapper;
 
     @Override
-    public <P> ApiResponse getOneFullyJoinedId(Integer id, Class<P> projection) {
-        return new ApiSuccessDataResponse<>(diningHallRepository.findFirstFullyJoinedById(id, projection), MsgCode.COMMON_SUCCESS_FETCHED);
+    public ServiceResponse getCount() {
+        return new ServiceSuccessDataResponse<>(diningHallRepository.count(), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
     @Override
-    public <P> ApiResponse getListFullyJoined(PageRequestModel pageRequestModel, Class<P> projection) {
-        return new ApiSuccessDataResponse<>(diningHallRepository.findFullyJoined(pageRequestMapper.map(pageRequestModel), projection), MsgCode.COMMON_SUCCESS_FETCHED);
+    public ServiceResponse getTotalCapacity() {
+        return new ServiceSuccessDataResponse<>(diningHallRepository.getTotalCapacity(), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
     @Override
-    public ApiResponse create(DiningHallCreateRequestModel model) {
+    public <P> ServiceResponse getOneFullyJoinedId(Integer id, Class<P> projection) {
+        return new ServiceSuccessDataResponse<>(diningHallRepository.findFirstFullyJoinedById(id, projection), MsgCode.COMMON_SUCCESS_FETCHED);
+    }
+
+    @Override
+    public <P> ServiceResponse getListFullyJoined(PageRequestModel pageRequestModel, Class<P> projection) {
+        return new ServiceSuccessDataResponse<>(diningHallRepository.findFullyJoined(pageRequestMapper.map(pageRequestModel), projection), MsgCode.COMMON_SUCCESS_FETCHED);
+    }
+
+    @Override
+    public ServiceDataResponse<Model> create(DiningHallCreateRequestModel model) {
         DiningHall saved = EntityServiceHelper.saveAndRefresh(diningHallRepository, diningHallCreateMapper.map(model));
-        return new ApiSuccessDataResponse<>(diningHallResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
+        return new ServiceSuccessDataResponse<>(diningHallResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
     }
 
     @Override
-    public ApiResponse updateName(Integer id, String name) {
+    public ServiceResponse updateName(Integer id, String name) {
         return ResponseHelper.getResponseBySuccess(diningHallRepository.updateName(id, name), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateDesc(Integer id, String desc) {
+    public ServiceResponse updateDesc(Integer id, String desc) {
         return ResponseHelper.getResponseBySuccess(diningHallRepository.updateDesc(id, desc), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateAddress(Integer id, String address) {
+    public ServiceResponse updateAddress(Integer id, String address) {
         return ResponseHelper.getResponseBySuccess(diningHallRepository.updateAddress(id, address), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateLatitudeAndLongitude(Integer id, Double latitude, Double longitude) {
+    public ServiceResponse updateLatitudeAndLongitude(Integer id, Double latitude, Double longitude) {
         return ResponseHelper.getResponseBySuccess(diningHallRepository.updateLatitudeAndLongitude(id, latitude, longitude), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateCapacity(Integer id, Integer capacity) {
+    public ServiceResponse updateCapacity(Integer id, Integer capacity) {
         return ResponseHelper.getResponseBySuccess(diningHallRepository.updateCapacity(id, capacity), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse addMeal(Integer diningHallId, Integer mealId) {
+    public ServiceResponse addMeal(Integer diningHallId, Integer mealId) {
         return ResponseHelper.getResponseBySuccess(diningHallRepository.addMeal(diningHallId, mealId), MsgCode.DINING_HALL_MEAL_ADD_SUCCESS);
     }
 
     @Override
-    public ApiResponse removeMeal(Integer diningHallId, Integer mealId) {
+    public ServiceResponse removeMeal(Integer diningHallId, Integer mealId) {
         return ResponseHelper.getResponseBySuccess(diningHallRepository.removeMeal(diningHallId, mealId), MsgCode.DINING_HALL_MEAL_REMOVE_SUCCESS);
     }
 

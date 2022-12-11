@@ -43,7 +43,6 @@ public class MsgCode {
     public final String VALIDATION_DEFAULT_UNIQUE = "{Validation.CustomValidation.Default.Unique}";
     public final String VALIDATION_DEFAULT_UUID = "{Validation.CustomValidation.Default.UUID}";
     public final String VALIDATION_DEFAULT_SCHEDULE_CONFLICT_CHECK = "{Validation.CustomValidation.Default.ScheduleConflictCheck}";
-    public final String VALIDATION_DEFAULT_MEAL_START_END_CONFLICT_CHECK = "{Validation.CustomValidation.Default.MealStartEndConflictCheck}";
 
     public final String VALIDATION_LANGUAGE_ID_NOT_NULL = "{Validation.Language.Id.NotNull}";
     public final String VALIDATION_LANGUAGE_NAME_NOT_NULL = "{Validation.Language.Name.NotNull}";
@@ -61,6 +60,10 @@ public class MsgCode {
     public final String VALIDATION_SORT_ORDERS_MAX_COLLECTION_SIZE = "{Validation.Sort.Orders.MaxCollectionSize}";
     public final String VALIDATION_ORDER_PROPERTY_NOT_BLANK = "{Validation.Order.Property.NotEmpty}";
 
+    public final String VALIDATION_LOGIN_MANAGEMENT_IDENTIFIER_NOT_NULL = "{Validation.Login.Management.Identifier.NotNull}";
+    public final String VALIDATION_LOGIN_CUSTOMER_IDENTIFIER_NOT_NULL = "{Validation.Login.Customer.Identifier.NotNull}";
+    public final String VALIDATION_LOGIN_PASSWORD_NOT_NULL = "{Validation.Login.Password.NotNull}";
+
     public final String VALIDATION_USER_ID_NOT_NULL = "{Validation.User.Id.NotNull}";
     public final String VALIDATION_USER_EMAIL_NOT_EMPTY = "{Validation.User.Email.NotNull}";
     public final String VALIDATION_USER_EMAIL_PATTERN = "{Validation.User.Email.Pattern}";
@@ -77,6 +80,7 @@ public class MsgCode {
     public final String VALIDATION_USER_BIRTH_DATE_NOT_NULL = "{Validation.User.BirthDate.NotNull}";
     public final String VALIDATION_USER_BIRTH_DATE_PAST = "{Validation.User.BirthDate.Past}";
 
+    public final String VALIDATION_CATERING_ID_NOT_NULL = "{Validation.Catering.Id.NotNull}";
     public final String VALIDATION_CATERING_DATE_NOT_NULL = "{Validation.Catering.Date.NotNull}";
     public final String VALIDATION_CATERING_DATE_FUTURE = "{Validation.Catering.Date.Future}";
     public final String VALIDATION_CATERING_PRICE_MIN = "{Validation.Catering.Price.Min}";
@@ -85,6 +89,10 @@ public class MsgCode {
     public final String VALIDATION_CATERING_MENU_ITEM_IDS_NOT_NULL = "{Validation.Catering.MenuItemIds.NotNull}";
     public final String VALIDATION_CATERING_MENU_ITEM_IDS_ELEMENT_NOT_NULL = "{Validation.Catering.MenuItemIdsElement.NotNull}";
 
+    public final String VALIDATION_CUSTOMER_ID_NOT_NULL = "{Validation.Customer.Id.NotNull}";
+    public final String VALIDATION_CUSTOMER_TCKN_NOT_NULL = "{Validation.Customer.Tckn.NotNull}";
+
+    public final String VALIDATION_CUSTOMER_TYPE_ID_NOT_NULL = "{Validation.CustomerType.Id.NotNull}";
     public final String VALIDATION_CUSTOMER_TYPE_NAME_NOT_NULL = "{Validation.CustomerType.Name.NotNull}";
     public final String VALIDATION_CUSTOMER_TYPE_NAME_SIZE = "{Validation.CustomerType.Name.Size}";
     public final String VALIDATION_CUSTOMER_TYPE_DESCRIPTION_NOT_NULL = "{Validation.CustomerType.Description.NotNull}";
@@ -93,9 +101,12 @@ public class MsgCode {
     public final String VALIDATION_DINING_HALL_NAME_NOT_NULL = "{Validation.DiningHall.Name.NotNull}";
     public final String VALIDATION_DINING_HALL_NAME_SIZE = "{Validation.DiningHall.Name.Size}";
     public final String VALIDATION_DINING_HALL_DESCRIPTION_SIZE = "{Validation.DiningHall.Description.Size}";
+    public final String VALIDATION_DINING_HALL_ADDRESS_NOT_NULL = "{Validation.DiningHall.Address.NotNull}";
     public final String VALIDATION_DINING_HALL_ADDRESS_SIZE = "{Validation.DiningHall.Address.Size}";
+    public final String VALIDATION_DINING_HALL_LATITUDE_NOT_NULL = "{Validation.DiningHall.Latitude.Min}";
     public final String VALIDATION_DINING_HALL_LATITUDE_MIN = "{Validation.DiningHall.Latitude.Min}";
     public final String VALIDATION_DINING_HALL_LATITUDE_MAX = "{Validation.DiningHall.Latitude.Max}";
+    public final String VALIDATION_DINING_HALL_LONGITUDE_NOT_NULL = "{Validation.DiningHall.Longitude.Min}";
     public final String VALIDATION_DINING_HALL_LONGITUDE_MIN = "{Validation.DiningHall.Longitude.Min}";
     public final String VALIDATION_DINING_HALL_LONGITUDE_MAX = "{Validation.DiningHall.Longitude.Max}";
     public final String VALIDATION_DINING_HALL_CAPACITY_MIN = "{Validation.DiningHall.Capacity.Min}";
@@ -110,5 +121,12 @@ public class MsgCode {
     public final String VALIDATION_MENU_ITEM_NAME_SIZE = "{Validation.MenuItem.Name.Size}";
     public final String VALIDATION_MENU_ITEM_CALORIES_MIN = "{Validation.MenuItem.Calories.Min}";
 
+    public final String VALIDATION_FEEDBACK_ID_NOT_NULL = "{Validation.Feedback.Id.NotNull}";
+    public final String VALIDATION_FEEDBACK_FULL_NAME_SIZE = "{Validation.Feedback.FullName.Size}";
+    public final String VALIDATION_FEEDBACK_TOPIC_NOT_NULL = "{Validation.Feedback.Topic.NotNull}";
+    public final String VALIDATION_FEEDBACK_TOPIC_SIZE = "{Validation.Feedback.Topic.Size}";
+    public final String VALIDATION_FEEDBACK_CONTENT_NOT_NULL = "{Validation.Feedback.Content.NotNull}";
+    public final String VALIDATION_FEEDBACK_CONTENT_SIZE = "{Validation.Feedback.Content.Size}";
+    public final String VALIDATION_FEEDBACK_REVIEWED_NOT_NULL = "{Validation.Feedback.Reviewed.NotNull}";
 
 }

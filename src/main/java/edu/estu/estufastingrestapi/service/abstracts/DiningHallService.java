@@ -1,28 +1,33 @@
 package edu.estu.estufastingrestapi.service.abstracts;
 
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.CreatableService;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.EntityService;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.ReadableService;
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
 import edu.estu.estufastingrestapi.service.model.request.dininghall.DiningHallCreateRequestModel;
 
 public interface DiningHallService extends EntityService, CreatableService<DiningHallCreateRequestModel>, ReadableService<Integer> {
-    ApiResponse updateDesc(Integer id, String desc);
 
-    ApiResponse updateAddress(Integer id, String address);
+    ServiceResponse getCount();
 
-    ApiResponse updateLatitudeAndLongitude(Integer id, Double latitude, Double longitude);
+    ServiceResponse getTotalCapacity();
 
-    ApiResponse updateCapacity(Integer id, Integer capacity);
+    <P> ServiceResponse getOneFullyJoinedId(Integer id, Class<P> projection);
 
-    <P> ApiResponse getOneFullyJoinedId(Integer id, Class<P> projection);
+    <P> ServiceResponse getListFullyJoined(PageRequestModel pageRequestModel, Class<P> projection);
 
-    <P> ApiResponse getListFullyJoined(PageRequestModel pageRequestModel, Class<P> projection);
+    ServiceResponse updateName(Integer id, String name);
 
-    ApiResponse updateName(Integer id, String name);
+    ServiceResponse updateDesc(Integer id, String desc);
 
-    ApiResponse addMeal(Integer diningHallId, Integer mealId);
+    ServiceResponse updateAddress(Integer id, String address);
 
-    ApiResponse removeMeal(Integer diningHallId, Integer mealId);
+    ServiceResponse updateLatitudeAndLongitude(Integer id, Double latitude, Double longitude);
+
+    ServiceResponse updateCapacity(Integer id, Integer capacity);
+
+    ServiceResponse addMeal(Integer diningHallId, Integer mealId);
+
+    ServiceResponse removeMeal(Integer diningHallId, Integer mealId);
 }

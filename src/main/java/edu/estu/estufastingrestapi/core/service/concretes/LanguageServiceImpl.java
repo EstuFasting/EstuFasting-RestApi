@@ -2,17 +2,19 @@ package edu.estu.estufastingrestapi.core.service.concretes;
 
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
 import edu.estu.estufastingrestapi.core.domain.entity.concretes.Language;
-import edu.estu.estufastingrestapi.core.domain.response.ResponseHelper;
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
-import edu.estu.estufastingrestapi.core.domain.response.success.ApiSuccessDataResponse;
 import edu.estu.estufastingrestapi.core.repository.abstracts.LanguageRepository;
 import edu.estu.estufastingrestapi.core.service.abstracts.LanguageService;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.BaseReadableServiceImpl;
 import edu.estu.estufastingrestapi.core.service.helper.EntityServiceHelper;
+import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
 import edu.estu.estufastingrestapi.core.service.model.request.language.LanguageCreateRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.request.language.LanguageUpdateRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.response.language.LanguageResponse;
 import edu.estu.estufastingrestapi.core.service.objectmapping.mapstruct.MapStructMapper;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceDataResponse;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
+import edu.estu.estufastingrestapi.core.service.response.helper.ResponseHelper;
+import edu.estu.estufastingrestapi.core.service.response.success.ServiceSuccessDataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,48 +32,48 @@ public class LanguageServiceImpl extends BaseReadableServiceImpl<Language, Integ
     private final MapStructMapper<Language, LanguageResponse> languageResponseMapper;
 
     @Override
-    public <P> ApiResponse getByAlpha2(String alpha2, Class<P> projection) {
-        return new ApiSuccessDataResponse<>(languageRepository.findFirstByAlpha2(alpha2, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
+    public <P> ServiceResponse getByAlpha2(String alpha2, Class<P> projection) {
+        return new ServiceSuccessDataResponse<>(languageRepository.findFirstByAlpha2(alpha2, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
     @Override
-    public ApiResponse create(LanguageCreateRequestModel model) {
+    public ServiceDataResponse<Model> create(LanguageCreateRequestModel model) {
         Language saved = EntityServiceHelper.saveAndRefresh(languageRepository, createRequestMapper.map(model));
-        return new ApiSuccessDataResponse<>(languageResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
+        return new ServiceSuccessDataResponse<>(languageResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
     }
 
     @Override
-    public ApiResponse updateChanges(LanguageUpdateRequestModel model) {
-        return new ApiSuccessDataResponse<>(languageResponseMapper.map(updateRequestMapper.mapInto(model, repository.getReferenceById(model.getId()))), MsgCode.COMMON_SUCCESS_UPDATED);
+    public ServiceResponse updateChanges(LanguageUpdateRequestModel model) {
+        return new ServiceSuccessDataResponse<>(languageResponseMapper.map(updateRequestMapper.mapInto(model, repository.getReferenceById(model.getId()))), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateName(Integer id, String name) {
+    public ServiceResponse updateName(Integer id, String name) {
         return ResponseHelper.getResponseBySuccess(languageRepository.updateName(id, name), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateLocalName(Integer id, String localName) {
+    public ServiceResponse updateLocalName(Integer id, String localName) {
         return ResponseHelper.getResponseBySuccess(languageRepository.updateLocalName(id, localName), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateAlpha2(Integer id, String alpha2) {
+    public ServiceResponse updateAlpha2(Integer id, String alpha2) {
         return ResponseHelper.getResponseBySuccess(languageRepository.updateAlpha2(id, alpha2), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateAlpha3T(Integer id, String alpha3T) {
+    public ServiceResponse updateAlpha3T(Integer id, String alpha3T) {
         return ResponseHelper.getResponseBySuccess(languageRepository.updateAlpha3T(id, alpha3T), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateUnlisted(Integer id, Boolean unlisted) {
+    public ServiceResponse updateUnlisted(Integer id, Boolean unlisted) {
         return ResponseHelper.getResponseBySuccess(languageRepository.updateUnlisted(id, unlisted), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateSupported(Integer id, Boolean unlisted) {
+    public ServiceResponse updateSupported(Integer id, Boolean unlisted) {
         return ResponseHelper.getResponseBySuccess(languageRepository.updateSupported(id, unlisted), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 

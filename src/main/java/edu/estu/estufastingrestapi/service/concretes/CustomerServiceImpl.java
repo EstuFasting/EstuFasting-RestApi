@@ -1,13 +1,15 @@
 package edu.estu.estufastingrestapi.service.concretes;
 
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
-import edu.estu.estufastingrestapi.core.domain.response.ResponseHelper;
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
-import edu.estu.estufastingrestapi.core.domain.response.success.ApiSuccessDataResponse;
 import edu.estu.estufastingrestapi.core.service.helper.EntityServiceHelper;
+import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
 import edu.estu.estufastingrestapi.core.service.objectmapping.manual.concretes.PageRequestMapper;
 import edu.estu.estufastingrestapi.core.service.objectmapping.mapstruct.MapStructMapper;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceDataResponse;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
+import edu.estu.estufastingrestapi.core.service.response.helper.ResponseHelper;
+import edu.estu.estufastingrestapi.core.service.response.success.ServiceSuccessDataResponse;
 import edu.estu.estufastingrestapi.entities.concretes.Customer;
 import edu.estu.estufastingrestapi.repository.abstracts.CustomerRepository;
 import edu.estu.estufastingrestapi.service.abstracts.CustomerService;
@@ -31,39 +33,34 @@ public class CustomerServiceImpl implements CustomerService {
     private final MapStructMapper<Customer, CustomerResponse> customerResponseMapper;
 
     @Override
-    public <P> ApiResponse getOneByIdentifier(String username, Class<P> projection) {
-        return new ApiSuccessDataResponse<>(customerRepository.findFullyJoinedByUsername(username, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
+    public ServiceDataResponse<Customer> getByTckn(String tckn) {
+        return new ServiceSuccessDataResponse<>(customerRepository.findByTckn(tckn).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
     @Override
-    public <P> ApiResponse getList(PageRequestModel pageRequestModel, Class<P> projection) {
-        return new ApiSuccessDataResponse<>(customerRepository.findAllBy(pageRequestMapper.map(pageRequestModel), projection), MsgCode.COMMON_SUCCESS_FETCHED);
+    public <P> ServiceDataResponse<P> getOneByIdentifier(String username, Class<P> projection) {
+        return new ServiceSuccessDataResponse<>(customerRepository.findFullyJoinedByUsername(username, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
     @Override
-    public <P> ApiResponse getOneFullyJoinedByUsername(String username, Class<P> projection) {
-        return new ApiSuccessDataResponse<>(customerRepository.findFullyJoinedByUsername(username, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
+    public <P> ServiceResponse getList(PageRequestModel pageRequestModel, Class<P> projection) {
+        return new ServiceSuccessDataResponse<>(customerRepository.findAllBy(pageRequestMapper.map(pageRequestModel), projection), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
     @Override
-    public ApiResponse create(CustomerCreateRequestModel model) {
+    public <P> ServiceResponse getOneFullyJoinedByUsername(String username, Class<P> projection) {
+        return new ServiceSuccessDataResponse<>(customerRepository.findFullyJoinedByUsername(username, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
+    }
+
+    @Override
+    public ServiceDataResponse<Model> create(CustomerCreateRequestModel model) {
         Customer saved = EntityServiceHelper.saveAndRefresh(customerRepository, createRequestMapper.map(model));
-        return new ApiSuccessDataResponse<>(customerResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
+        return new ServiceSuccessDataResponse<>(customerResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
     }
 
     @Override
-    public ApiResponse updateType(UUID id, Integer customerTypeId) {
+    public ServiceResponse updateType(UUID id, Integer customerTypeId) {
         return ResponseHelper.getResponseBySuccess(customerRepository.updateType(id, customerTypeId), MsgCode.COMMON_SUCCESS_UPDATED);
-    }
-
-    @Override
-    public ApiResponse makeReservation(UUID customerId, UUID cateringId) {
-        return ResponseHelper.getResponseBySuccess(customerRepository.makeReservation(customerId, cateringId), MsgCode.CUSTOMER_RESERVATION_MAKE_SUCCESS);
-    }
-
-    @Override
-    public ApiResponse cancelReservation(UUID customerId, UUID cateringId) {
-        return ResponseHelper.getResponseBySuccess(customerRepository.cancelReservation(customerId, cateringId), MsgCode.CUSTOMER_RESERVATION_CANCEL_SUCCESS);
     }
 
 }

@@ -13,6 +13,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -56,7 +57,7 @@ public class Catering extends BaseEntity<UUID> {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Set<MenuItem> menuItems;
 
-    @ManyToMany(mappedBy = "reservations", fetch = FetchType.LAZY)
-    private Set<Customer> customers;
+    @OneToMany(mappedBy = "catering", fetch = FetchType.LAZY)
+    private List<Reservation> reservations;
 
 }

@@ -1,5 +1,6 @@
 package edu.estu.estufastingrestapi.service.model.response.dininghall;
 
+import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
 import edu.estu.estufastingrestapi.service.model.response.meal.MealResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DiningHallResponse {
+public class DiningHallResponse implements Model {
 
     private Integer id;
 

@@ -13,6 +13,9 @@ import java.util.Optional;
 @Repository
 public interface DiningHallRepository extends JpaRepositoryAdapter<DiningHall, Integer> {
 
+    @Query("select sum(d.capacity) from DiningHall d")
+    int getTotalCapacity();
+
     @Query(value = """
                 select d from DiningHall d
                 left join fetch d.meals

@@ -29,13 +29,13 @@ public class DiningHall extends BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "uq_name", nullable = false, length = Validation.DiningHall.MAX_LEN_DINING_HALL_NAME)
+    @Column(name = "uq_name", nullable = false, length = Validation.DiningHall.MAX_LEN_NAME)
     private String name;
 
-    @Column(name = "tx_description", length = Validation.DiningHall.MAX_LEN_DINING_HALL_DESC)
+    @Column(name = "tx_description", length = Validation.DiningHall.MAX_LEN_DESC)
     private String description;
 
-    @Column(name = "tx_address", length = Validation.DiningHall.MAX_LEN_DINING_HALL_ADDRESS_LINE)
+    @Column(name = "tx_address", nullable = false, length = Validation.DiningHall.MAX_LEN_ADDRESS_LINE)
     private String address;
 
     @Column(name = "ft_latitude")

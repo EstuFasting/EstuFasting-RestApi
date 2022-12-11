@@ -12,7 +12,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -42,8 +42,7 @@ public class Role extends BaseEntity<Integer> {
             uniqueConstraints = @UniqueConstraint(name = UK.ROLE_PRIVILEGE_ROLE_PRIVILEGE, columnNames = {"rf_role", "rf_privilege"})
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Collection<Privilege> privileges;
-
+    private Set<Privilege> privileges;
 
 }
 

@@ -1,5 +1,6 @@
 package edu.estu.estufastingrestapi.core.service.model.response.language;
 
+import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LanguageResponse {
+public class LanguageResponse implements Model {
 
     private Integer id;
 

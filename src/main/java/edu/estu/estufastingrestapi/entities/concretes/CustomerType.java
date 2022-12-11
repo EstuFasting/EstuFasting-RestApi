@@ -24,10 +24,10 @@ public class CustomerType extends BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "uq_name", nullable = false, length = Validation.CustomerType.MAX_CUSTOMER_TYPE_NAME)
+    @Column(name = "uq_name", nullable = false, length = Validation.CustomerType.MAX_LEN_NAME)
     private String name;
 
-    @Column(name = "tx_description", nullable = false, length = Validation.CustomerType.MAX_CUSTOMER_TYPE_DESC)
+    @Column(name = "tx_description", nullable = false, length = Validation.CustomerType.MAX_LEN_DESC)
     private String description;
 
 }

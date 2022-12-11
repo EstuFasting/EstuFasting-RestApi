@@ -6,7 +6,7 @@ import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.LogExec
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Trimmed;
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Valid;
 import edu.estu.estufastingrestapi.core.domain.constants.RoleConst;
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
 import edu.estu.estufastingrestapi.service.abstracts.StaffService;
 import edu.estu.estufastingrestapi.service.model.request.staff.StaffCreateRequestModel;
 import io.swagger.annotations.Api;
@@ -16,10 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @LogExecutionTime
@@ -34,10 +31,16 @@ public class StaffController {
 
     private final StaffService staffService;
 
+    @GetMapping("/get/count")
+    public ResponseEntity<ServiceResponse> getCount() {
+        return ResponseBuilder.status(HttpStatus.OK)
+                .body(staffService.getCount());
+    }
+
     @Secured({RoleConst.Name.STAFF, RoleConst.Name.SUPER_ADMIN})
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> create(@RequestBody @Valid StaffCreateRequestModel model) {
-        return ResponseBuilder.status(HttpStatus.OK)
+    public ResponseEntity<ServiceResponse> create(@RequestBody @Valid StaffCreateRequestModel model) {
+        return ResponseBuilder.status(HttpStatus.CREATED)
                 .body(staffService.create(model));
     }
 

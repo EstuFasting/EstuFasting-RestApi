@@ -18,7 +18,7 @@ import java.time.LocalTime;
 public class MealCreateRequestModel implements RequestModel {
 
     @NotNull(message = MsgCode.VALIDATION_MEAL_NAME_NOT_NULL)
-    @Size(min = Validation.Meal.MIN_LEN_MEAL_NAME, max = Validation.Meal.MAX_LEN_MEAL_NAME, message = MsgCode.VALIDATION_MEAL_NAME_SIZE)
+    @Size(min = Validation.Meal.MIN_LEN_NAME, max = Validation.Meal.MAX_LEN_NAME, message = MsgCode.VALIDATION_MEAL_NAME_SIZE)
     private String name;
 
     @NotNull(message = MsgCode.VALIDATION_MEAL_START_NOT_NULL)

@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Optional;
 
 @UtilityClass
-public class PrincipalHelper {
+public class SecurityStaticHelper {
 
     public static Optional<Object> getCurrentPrincipal() {
         return Optional.ofNullable(SecurityContextHolder.getContext())

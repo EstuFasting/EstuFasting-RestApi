@@ -1,5 +1,6 @@
 package edu.estu.estufastingrestapi.core.service.model.response.role;
 
+import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
 import edu.estu.estufastingrestapi.core.service.model.response.privilege.PrivilegeResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleResponse {
+public class RoleResponse implements Model {
 
     private Integer id;
 

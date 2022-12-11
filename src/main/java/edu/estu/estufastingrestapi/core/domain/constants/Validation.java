@@ -16,40 +16,43 @@ public class Validation {
 
     @UtilityClass
     public class Customer {
-        public static final int LEN_CUSTOMER_TCKN = 11;
-        public static final int MIN_CUSTOMER_CARD_NO = 7;
-        public static final int MAX_CUSTOMER_CARD_NO = Pow2.L63;
+        public static final int MIN_LEN_CARD_NO = 7;
+
+        public static final int MAX_LEN_TCKN = 11;
+        public static final int MAX_LEN_CARD_NO = Pow2.L63;
+
+        public final String RGX_TCKN = "\\d{11}";
     }
 
     @UtilityClass
     public class CustomerType {
-        public static final int MIN_CUSTOMER_TYPE_NAME = 2;
-        public static final int MIN_CUSTOMER_TYPE_DESC = 10;
+        public static final int MIN_LEN_NAME = 2;
+        public static final int MIN_LEN_DESC = 10;
 
-        public static final int MAX_CUSTOMER_TYPE_NAME = Pow2.L63;
-        public static final int MAX_CUSTOMER_TYPE_DESC = Pow2.L511;
+        public static final int MAX_LEN_NAME = Pow2.L63;
+        public static final int MAX_LEN_DESC = Pow2.L511;
     }
 
     @UtilityClass
     public class DiningHall {
-        public static final int MIN_LEN_DINING_HALL_NAME = 5;
-        public static final int MIN_LEN_DINING_HALL_DESC = 10;
-        public static final int MIN_LEN_DINING_HALL_ADDRESS_LINE = 10;
-        public static final int MIN_LEN_DINING_HALL_LATITUDE = -90;
-        public static final int MIN_LEN_DINING_HALL_LONGITUDE = -180;
-        public static final int MIN_LEN_DINING_HALL_CAPACITY = 1;
+        public static final int MIN_LEN_NAME = 5;
+        public static final int MIN_LEN_DESC = 10;
+        public static final int MIN_LEN_ADDRESS_LINE = 10;
+        public static final int MIN_VAL_LATITUDE = -90;
+        public static final int MIN_VAL_LONGITUDE = -180;
+        public static final int MIN_VAL_CAPACITY = 1;
 
-        public static final int MAX_LEN_DINING_HALL_NAME = Pow2.L63;
-        public static final int MAX_LEN_DINING_HALL_DESC = Pow2.L127;
-        public static final int MAX_LEN_DINING_HALL_ADDRESS_LINE = Pow2.L511;
-        public static final int MAX_LEN_DINING_HALL_LATITUDE = 90;
-        public static final int MAX_LEN_DINING_HALL_LONGITUDE = 180;
+        public static final int MAX_LEN_NAME = Pow2.L63;
+        public static final int MAX_LEN_DESC = Pow2.L127;
+        public static final int MAX_LEN_ADDRESS_LINE = Pow2.L511;
+        public static final int MAX_VAL_LATITUDE = 90;
+        public static final int MAX_VAL_LONGITUDE = 180;
     }
 
     @UtilityClass
     public class Meal {
-        public static final int MIN_LEN_MEAL_NAME = 2;
-        public static final int MAX_LEN_MEAL_NAME = Pow2.L63;
+        public static final int MIN_LEN_NAME = 2;
+        public static final int MAX_LEN_NAME = Pow2.L63;
     }
 
     @UtilityClass
@@ -58,9 +61,9 @@ public class Validation {
 
     @UtilityClass
     public class MenuItem {
-        public static final int MIN_LEN_MENU_ITEM_NAME = 1;
+        public static final int MIN_LEN_NAME = 1;
         public static final int MIN_VAL_CALORIES = 0;
-        public static final int MAX_LEN_MENU_ITEM_NAME = Pow2.L63;
+        public static final int MAX_LEN_NAME = Pow2.L63;
     }
 
     @UtilityClass
@@ -74,13 +77,28 @@ public class Validation {
     }
 
     @UtilityClass
-    public class SystemEmployee {
+    public class Staff {
+    }
+
+    @UtilityClass
+    public class Feedback {
+        public final int MIN_LEN_CONTENT = 2;
+        public final int MIN_LEN_TOPIC = 1;
+        public static final int MIN_LEN_FULL_NAME = 2;
+
+        public final int MAX_LEN_CONTENT = Pow2.L2047;
+        public final int MAX_LEN_TOPIC = Pow2.L31;
+        public static final int MAX_LEN_FULL_NAME = Pow2.L63;
+        public static final int MAX_LEN_EMAIL = Common.MAX_LEN_EMAIL;
     }
 
     @UtilityClass
     public class Common {
         public final int UUID = 16;
+        public final int MAX_LEN_EMAIL = Pow2.L255;
 
+        public final String RGX_EMAIL = "^\\w+(\\.\\w+)*@\\p{javaLowerCase}{2,12}+(\\.\\p{javaLowerCase}{2,6})+$";
+        public final String RGX_PHONE_NUMBER = "^\\+\\d{1,3}-\\d{3}-\\d{3}-\\d{2}-\\d{2}$";
         public final String RGX_UUID = "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$";
         public final String RGX_WEBSITE = "^(w{3}\\.)?[^.]+(\\.\\p{javaLowerCase}{2,12})+$";
         public final String RGX_DATE = "^\\d{4}-\\d{2}-\\d{2}$";
@@ -129,15 +147,15 @@ public class Validation {
         public final int MIN_LEN_LAST_NAME = 2;
         public final int MIN_LEN_PW = 6;
 
-        public final int MAX_LEN_EMAIL = 255;
+        public final int MAX_LEN_EMAIL = Common.MAX_LEN_EMAIL;
         public final int MAX_LEN_PHONE_NUM = 17;
         public final int MAX_LEN_FIRST_NAME = Pow2.L31;
         public final int MAX_LEN_LAST_NAME = Pow2.L31;
         public final int MAX_LEN_BCRYPT_PW = 60;
         public final int MAX_LEN_PW = Pow2.L63;
 
-        public final String RGX_EMAIL = "^\\w+(\\.\\w+)*@\\p{javaLowerCase}{2,12}+(\\.\\p{javaLowerCase}{2,6})+$";
-        public final String RGX_PHONE_NUMBER = "^\\+\\d{1,3}-\\d{3}-\\d{3}-\\d{2}-\\d{2}$";
+        public final String RGX_EMAIL = Common.RGX_EMAIL;
+        public final String RGX_PHONE_NUMBER = Common.RGX_PHONE_NUMBER;
     }
 
 }

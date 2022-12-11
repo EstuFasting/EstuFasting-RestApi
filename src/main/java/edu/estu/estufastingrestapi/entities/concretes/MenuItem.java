@@ -26,7 +26,7 @@ public class MenuItem extends BaseEntity<UUID> {
     @GeneratedValue
     private UUID id;
 
-    @Column(name = "uq_name", nullable = false, length = Validation.MenuItem.MAX_LEN_MENU_ITEM_NAME)
+    @Column(name = "uq_name", nullable = false, length = Validation.MenuItem.MAX_LEN_NAME)
     private String name;
 
     @ColumnDefault("0")

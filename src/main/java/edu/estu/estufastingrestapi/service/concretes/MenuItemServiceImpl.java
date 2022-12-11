@@ -1,12 +1,14 @@
 package edu.estu.estufastingrestapi.service.concretes;
 
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
-import edu.estu.estufastingrestapi.core.domain.response.ResponseHelper;
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
-import edu.estu.estufastingrestapi.core.domain.response.success.ApiSuccessDataResponse;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.BaseReadableServiceImpl;
 import edu.estu.estufastingrestapi.core.service.helper.EntityServiceHelper;
+import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
 import edu.estu.estufastingrestapi.core.service.objectmapping.mapstruct.MapStructMapper;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceDataResponse;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
+import edu.estu.estufastingrestapi.core.service.response.helper.ResponseHelper;
+import edu.estu.estufastingrestapi.core.service.response.success.ServiceSuccessDataResponse;
 import edu.estu.estufastingrestapi.entities.concretes.MenuItem;
 import edu.estu.estufastingrestapi.repository.abstracts.MenuItemRepository;
 import edu.estu.estufastingrestapi.service.abstracts.MenuItemService;
@@ -28,18 +30,18 @@ public class MenuItemServiceImpl extends BaseReadableServiceImpl<MenuItem, UUID>
     private final MapStructMapper<MenuItem, MenuItemResponse> menuItemResponseMapper;
 
     @Override
-    public ApiResponse create(MenuItemCreateRequestModel model) {
+    public ServiceDataResponse<Model> create(MenuItemCreateRequestModel model) {
         MenuItem saved = EntityServiceHelper.saveAndRefresh(menuItemRepository, createRequestMapper.map(model));
-        return new ApiSuccessDataResponse<>(menuItemResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
+        return new ServiceSuccessDataResponse<>(menuItemResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
     }
 
     @Override
-    public ApiResponse updateName(UUID id, String name) {
+    public ServiceResponse updateName(UUID id, String name) {
         return ResponseHelper.getResponseBySuccess(menuItemRepository.updateName(id, name), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override
-    public ApiResponse updateCalories(UUID id, Integer calories) {
+    public ServiceResponse updateCalories(UUID id, Integer calories) {
         return ResponseHelper.getResponseBySuccess(menuItemRepository.updateCalories(id, calories), MsgCode.COMMON_SUCCESS_UPDATED);
     }
 

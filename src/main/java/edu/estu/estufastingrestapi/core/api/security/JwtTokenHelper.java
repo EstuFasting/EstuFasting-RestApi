@@ -1,7 +1,7 @@
 package edu.estu.estufastingrestapi.core.api.security;
 
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
-import edu.estu.estufastingrestapi.core.service.model.response.user.UserAuthProjection;
+import edu.estu.estufastingrestapi.core.domain.helper.ReflectionHelper;
 import edu.estu.estufastingrestapi.core.service.objectmapping.manual.concretes.AuthorityNameMapper;
 import edu.estu.estufastingrestapi.core.service.objectmapping.manual.concretes.GrantedAuthorityMapper;
 import io.jsonwebtoken.*;
@@ -11,6 +11,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
@@ -31,14 +32,16 @@ public class JwtTokenHelper {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserAuthProjection user) {
+    public String generateToken(Object user) {
         final int JWT_EXPIRATION_HOUR = 48;
+        String username = ReflectionHelper.getFieldValueByGetter(user, "getUsername", String.class).orElse(null);
+        Collection<?> roles = ReflectionHelper.getFieldValueByGetter(user, "getRoles", Collection.class).orElse(null);
         String token = Jwts.builder()
-                .setSubject(user.getUsername())
+                .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_HOUR * 3600000))
                 .setIssuer("CosmicDust19")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .claim("roles", authorityNameMapper.mapCollection(grantedAuthorityMapper.map(user.getRoles())))
+                .claim("roles", authorityNameMapper.mapCollection(grantedAuthorityMapper.map(roles)))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
         return SCHEME + " " + token;

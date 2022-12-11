@@ -4,7 +4,7 @@ import edu.estu.estufastingrestapi.core.domain.constants.FK;
 import edu.estu.estufastingrestapi.core.domain.constants.UK;
 import edu.estu.estufastingrestapi.core.domain.constants.Validation;
 import edu.estu.estufastingrestapi.core.domain.entity.abstracts.BaseEntity;
-import edu.estu.estufastingrestapi.core.domain.entity.listeners.UserCreateListener;
+import edu.estu.estufastingrestapi.core.domain.entity.listeners.UserListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ import java.util.UUID;
                 @UniqueConstraint(columnNames = "uq_phone_number", name = UK.USER_PHONE_NUMBER)
         }
 )
-@EntityListeners(UserCreateListener.class)
+@EntityListeners(UserListener.class)
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User extends BaseEntity<UUID> {
 
@@ -54,13 +54,13 @@ public class User extends BaseEntity<UUID> {
     @Column(name = "tx_password", nullable = false, length = Validation.User.MAX_LEN_BCRYPT_PW)
     protected String password;
 
-    @Column(name = "tx_first_name", nullable = true, length = Validation.User.MAX_LEN_FIRST_NAME)
+    @Column(name = "tx_first_name", length = Validation.User.MAX_LEN_FIRST_NAME)
     protected String firstName;
 
-    @Column(name = "tx_last_name", nullable = true, length = Validation.User.MAX_LEN_LAST_NAME)
+    @Column(name = "tx_last_name", length = Validation.User.MAX_LEN_LAST_NAME)
     protected String lastName;
 
-    @Column(name = "dt_birth", nullable = true)
+    @Column(name = "dt_birth")
     protected LocalDate birthDate;
 
     @ColumnDefault("'1'")

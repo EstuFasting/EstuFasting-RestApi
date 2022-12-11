@@ -26,7 +26,7 @@ public class Meal extends BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "uq_name", nullable = false, length = Validation.Meal.MAX_LEN_MEAL_NAME)
+    @Column(name = "uq_name", nullable = false, length = Validation.Meal.MAX_LEN_NAME)
     private String name;
 
     @Column(name = "dt_start", nullable = false)

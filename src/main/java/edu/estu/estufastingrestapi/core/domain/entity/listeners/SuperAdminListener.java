@@ -9,9 +9,9 @@ public class SuperAdminListener {
 
     @PrePersist
     public void prePersist(SuperAdmin target) {
-        ListenerHelper.addToRoles(target, RoleConst.Name.SUPER_ADMIN);
-        ListenerHelper.addToRoles(target, RoleConst.Name.CUSTOMER);
-        ListenerHelper.addToRoles(target, RoleConst.Name.STAFF);
+        ListenerHelper.addToRoles(target, RoleConst.Id.SUPER_ADMIN);
+        ListenerHelper.addToRoles(target, RoleConst.Id.CUSTOMER);
+        ListenerHelper.addToRoles(target, RoleConst.Id.STAFF);
     }
 
 }

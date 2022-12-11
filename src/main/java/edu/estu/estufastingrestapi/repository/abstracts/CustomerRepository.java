@@ -14,10 +14,17 @@ public interface CustomerRepository extends JpaRepositoryAdapter<Customer, UUID>
 
     @Query(value = """
                 select u from Customer u
+                where u.tckn = :tckn
+            """)
+    Optional<Customer> findByTckn(String tckn);
+
+    @Query(value = """
+                select u from Customer u
                 left join fetch u.language l
                 left join fetch u.roles r
                 left join fetch r.privileges p
-                left join fetch u.reservations
+                left join fetch u.reservations res
+                left join fetch res.catering c
                 where u.username = :username
             """)
     <P> Optional<P> findFullyJoinedByUsername(String username, Class<P> projection);
@@ -25,13 +32,5 @@ public interface CustomerRepository extends JpaRepositoryAdapter<Customer, UUID>
     @Modifying
     @Query("update Customer c set c.type.id = :customerTypeId where c.id = :id")
     int updateType(UUID id, Integer customerTypeId);
-
-    @Modifying
-    @Query(value = "insert into tb_reservation values (:customerId, :cateringId)", nativeQuery = true)
-    int makeReservation(UUID customerId, UUID cateringId);
-
-    @Modifying
-    @Query(value = "delete from tb_reservation where rf_customer = :customerId and rf_catering = :cateringId", nativeQuery = true)
-    int cancelReservation(UUID customerId, UUID cateringId);
 
 }

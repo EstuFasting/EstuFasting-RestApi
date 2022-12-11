@@ -19,12 +19,12 @@ import java.util.List;
 public class SpringFoxConfig {
 
     private ApiInfo apiInfo() {
-        return new ApiInfo("Template Project Rest APIs",
-                "APIs for Template Project.",
+        return new ApiInfo("Estu Fasting Rest APIs",
+                "APIs for Estu Fasting Project.",
                 "0.0.1-SNAPSHOT",
                 "Terms of catering",
-                new Contact("Semih Kayan", "https://github.com/CosmicDust19", "smh01.2019@gmail.com"),
-                "MIT License", "https://github.com/CosmicDust19",
+                new Contact("Tabıldot", "https://github.com/EstuFasting", "smh01.2019@gmail.com"),
+                "MIT License", "https://github.com/EstuFasting",
                 Collections.emptyList());
     }
 

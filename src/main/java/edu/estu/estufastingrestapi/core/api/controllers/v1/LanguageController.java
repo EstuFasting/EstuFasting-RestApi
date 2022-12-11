@@ -6,11 +6,11 @@ import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.LogExec
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Trimmed;
 import edu.estu.estufastingrestapi.core.crosscuttingconcerns.annotations.Valid;
 import edu.estu.estufastingrestapi.core.domain.constants.RoleConst;
-import edu.estu.estufastingrestapi.core.domain.response.abstraction.ApiResponse;
 import edu.estu.estufastingrestapi.core.service.abstracts.LanguageService;
 import edu.estu.estufastingrestapi.core.service.model.request.language.LanguageCreateRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
 import edu.estu.estufastingrestapi.core.service.model.response.language.LanguageQuickProjection;
+import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
@@ -34,30 +34,30 @@ public class LanguageController {
     private final LanguageService languageService;
 
     @Secured(RoleConst.Name.USER)
-    @GetMapping("/get/by_id")
-    public ResponseEntity<ApiResponse> getById(@RequestParam Integer id) {
+    @GetMapping("/get/one/by_id")
+    public ResponseEntity<ServiceResponse> getById(@RequestParam Integer id) {
         return ResponseBuilder.status(HttpStatus.OK)
                 .body(languageService.getOneByIdentifier(id, LanguageQuickProjection.class));
     }
 
     @Secured(RoleConst.Name.USER)
-    @GetMapping("/get/by_alpha_2")
-    public ResponseEntity<ApiResponse> getByAlpha2(@RequestParam String alpha2) {
+    @GetMapping("/get/one/by_alpha_2")
+    public ResponseEntity<ServiceResponse> getByAlpha2(@RequestParam String alpha2) {
         return ResponseBuilder.status(HttpStatus.OK)
                 .body(languageService.getByAlpha2(alpha2, LanguageQuickProjection.class));
     }
 
     @Secured(RoleConst.Name.USER)
-    @GetMapping("/get")
-    public ResponseEntity<ApiResponse> get(@ModelAttribute @Valid PageRequestModel pageRequestModel) {
+    @GetMapping("/get/list")
+    public ResponseEntity<ServiceResponse> get(@ModelAttribute @Valid PageRequestModel pageRequestModel) {
         return ResponseBuilder.status(HttpStatus.OK)
                 .body(languageService.getList(pageRequestModel, LanguageQuickProjection.class));
     }
 
     @Secured(RoleConst.Name.SUPER_ADMIN)
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> create(@RequestBody @Valid LanguageCreateRequestModel model) {
-        return ResponseBuilder.status(HttpStatus.OK)
+    public ResponseEntity<ServiceResponse> create(@RequestBody @Valid LanguageCreateRequestModel model) {
+        return ResponseBuilder.status(HttpStatus.CREATED)
                 .body(languageService.create(model));
     }
 

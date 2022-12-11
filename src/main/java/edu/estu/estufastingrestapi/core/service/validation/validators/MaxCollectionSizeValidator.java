@@ -10,6 +10,7 @@ public class MaxCollectionSizeValidator extends BaseConstraintValidator<MaxColle
 
     @Override
     public boolean isValid(Collection<?> values, ConstraintValidatorContext context) {
+        if (values == null) return true;
         return values.size() <= constraint.max();
     }
 
