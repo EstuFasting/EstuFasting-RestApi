@@ -64,14 +64,15 @@ public class AuthController {
     public ResponseEntity<ServiceResponse> loginCustomer(@RequestBody @Valid CustomerLoginRequestModel model) {
         boolean tckn = model.getIdentifier().matches(Validation.Customer.RGX_TCKN);
         Customer customer;
-        if (tckn) customer = customerService.getByTckn(model.getIdentifier()).getData();
+        if (tckn) customer = customerService.getQuickByTckn(model.getIdentifier(), Customer.class).getData();
         else customer = customerService.getOneByIdentifier(model.getIdentifier(), Customer.class).getData();
+
         if (customer.getPassword() == null)
             throw new UsernameNotFoundException(MsgCode.SECURITY_LOGIN_WRONG_USERNAME);
         if (!passwordEncoder.matches(model.getPassword(), customer.getPassword()))
             throw new BadCredentialsException(MsgCode.SECURITY_LOGIN_WRONG_PASSWORD);
 
-        UserAuthProjection user = userService.getUserForLogin(model.getIdentifier());
+        UserAuthProjection user = userService.getUserForLogin(customer.getUsername());
         return ResponseBuilder.status(HttpStatus.OK)
                 .header(HttpHeaders.AUTHORIZATION, jwtTokenHelper.generateToken(user))
                 .body(new ServiceSuccessDataResponse<>(user, MsgCode.COMMON_SUCCESS));

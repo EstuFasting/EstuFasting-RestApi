@@ -33,8 +33,8 @@ public class CustomerServiceImpl implements CustomerService {
     private final MapStructMapper<Customer, CustomerResponse> customerResponseMapper;
 
     @Override
-    public ServiceDataResponse<Customer> getByTckn(String tckn) {
-        return new ServiceSuccessDataResponse<>(customerRepository.findByTckn(tckn).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
+    public <P> ServiceDataResponse<P> getQuickByTckn(String tckn, Class<P> projection) {
+        return new ServiceSuccessDataResponse<>(customerRepository.findQuickByTckn(tckn, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
     @Override

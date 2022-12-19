@@ -16,7 +16,7 @@ public interface CustomerRepository extends JpaRepositoryAdapter<Customer, UUID>
                 select u from Customer u
                 where u.tckn = :tckn
             """)
-    Optional<Customer> findByTckn(String tckn);
+    <P> Optional<P> findQuickByTckn(String tckn, Class<P> projection);
 
     @Query(value = """
                 select u from Customer u
