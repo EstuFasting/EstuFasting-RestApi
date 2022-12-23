@@ -10,7 +10,6 @@ import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResp
 import edu.estu.estufastingrestapi.service.abstracts.StaffService;
 import edu.estu.estufastingrestapi.service.model.request.staff.StaffCreateRequestModel;
 import io.swagger.annotations.Api;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

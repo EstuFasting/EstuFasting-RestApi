@@ -1,14 +1,13 @@
 package edu.estu.estufastingrestapi.service.model.response.meal;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
-import edu.estu.estufastingrestapi.service.model.response.dininghall.DiningHallResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalTime;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -20,10 +19,10 @@ public class MealResponse implements Model {
 
     private String name;
 
+    @JsonFormat(pattern = "hh:mm")
     private LocalTime start;
 
+    @JsonFormat(pattern = "hh:mm")
     private LocalTime end;
-
-    private Set<DiningHallResponse> diningHalls;
 
 }

@@ -8,11 +8,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface CateringRepository extends JpaRepositoryAdapter<Catering, UUID> {
+
+    boolean existsByIdAndDateBefore(UUID id, LocalDate date);
 
     @Query(value = """
                 select c from Catering c
@@ -33,6 +36,8 @@ public interface CateringRepository extends JpaRepositoryAdapter<Catering, UUID>
                 where c.id = :id
             """)
     <P> Optional<P> findCateringCustomersById(UUID id, Class<P> projection);
+
+    <P> Page<P> findAllByDateBetween(LocalDate lowerBound, LocalDate upperBound, Pageable pageable, Class<P> projection);
 
     @Modifying
     @Query(value = "insert into tb_menu values (:cateringId, :menuItemId)", nativeQuery = true)

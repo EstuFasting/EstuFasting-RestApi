@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
@@ -38,6 +39,11 @@ public class CateringServiceImpl extends BaseReadableServiceImpl<Catering, UUID>
     @Override
     public <P> ServiceResponse getListFullyJoined(PageRequestModel pageRequestModel, Class<P> projection) {
         return new ServiceSuccessDataResponse<>(cateringRepository.findFullyJoined(pageRequestMapper.map(pageRequestModel), projection), MsgCode.COMMON_SUCCESS_FETCHED);
+    }
+
+    @Override
+    public <P> ServiceResponse getListByDateBetween(PageRequestModel pageRequestModel, Class<P> projection, LocalDate lowerBound, LocalDate upperBound) {
+        return new ServiceSuccessDataResponse<>(cateringRepository.findAllByDateBetween(lowerBound, upperBound, pageRequestMapper.map(pageRequestModel), projection), MsgCode.COMMON_SUCCESS_FETCHED);
     }
 
     @Override

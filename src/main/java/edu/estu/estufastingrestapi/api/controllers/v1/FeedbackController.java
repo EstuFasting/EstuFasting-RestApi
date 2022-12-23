@@ -12,7 +12,6 @@ import edu.estu.estufastingrestapi.service.abstracts.FeedbackService;
 import edu.estu.estufastingrestapi.service.model.request.feedback.FeedbackCreateRequestModel;
 import edu.estu.estufastingrestapi.service.model.response.feedback.FeedbackQuickProjection;
 import io.swagger.annotations.Api;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -80,6 +80,8 @@ public class MsgCode {
     public final String VALIDATION_USER_BIRTH_DATE_NOT_NULL = "{Validation.User.BirthDate.NotNull}";
     public final String VALIDATION_USER_BIRTH_DATE_PAST = "{Validation.User.BirthDate.Past}";
 
+    public final String VALIDATION_RESERVATION_CATERING_DATE_FUTURE = "{Validation.Reservation.CateringDate.Future}";
+
     public final String VALIDATION_CATERING_ID_NOT_NULL = "{Validation.Catering.Id.NotNull}";
     public final String VALIDATION_CATERING_DATE_NOT_NULL = "{Validation.Catering.Date.NotNull}";
     public final String VALIDATION_CATERING_DATE_FUTURE = "{Validation.Catering.Date.Future}";

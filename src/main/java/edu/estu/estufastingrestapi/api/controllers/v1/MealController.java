@@ -12,7 +12,6 @@ import edu.estu.estufastingrestapi.service.abstracts.MealService;
 import edu.estu.estufastingrestapi.service.model.request.meal.MealCreateRequestModel;
 import edu.estu.estufastingrestapi.service.model.response.meal.MealQuickProjection;
 import io.swagger.annotations.Api;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;

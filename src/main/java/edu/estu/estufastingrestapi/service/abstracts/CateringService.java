@@ -7,12 +7,15 @@ import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRe
 import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
 import edu.estu.estufastingrestapi.service.model.request.catering.CateringCreateRequestModel;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public interface CateringService extends EntityService, CreatableService<CateringCreateRequestModel>, ReadableService<UUID> {
     <P> ServiceResponse getOneFullyJoinedById(UUID id, Class<P> projection);
 
     <P> ServiceResponse getListFullyJoined(PageRequestModel pageRequestModel, Class<P> projection);
+
+    <P> ServiceResponse getListByDateBetween(PageRequestModel pageRequestModel, Class<P> projection, LocalDate lowerBound, LocalDate upperBound);
 
     ServiceResponse addMenuItem(UUID cateringId, UUID menuItemId);
 

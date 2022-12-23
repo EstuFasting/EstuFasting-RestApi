@@ -1,5 +1,6 @@
 package edu.estu.estufastingrestapi.service.model.response.catering;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.estu.estufastingrestapi.core.service.model.response.abstraction.AuditedResponse;
 import edu.estu.estufastingrestapi.service.model.response.meal.MealResponse;
 import edu.estu.estufastingrestapi.service.model.response.menuitem.MenuItemResponse;
@@ -20,6 +21,7 @@ public class CateringResponse extends AuditedResponse {
 
     private UUID id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     private MealResponse meal;

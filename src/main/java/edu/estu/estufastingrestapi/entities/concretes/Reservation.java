@@ -3,7 +3,7 @@ package edu.estu.estufastingrestapi.entities.concretes;
 import edu.estu.estufastingrestapi.core.domain.constants.FK;
 import edu.estu.estufastingrestapi.core.domain.constants.UK;
 import edu.estu.estufastingrestapi.core.domain.entity.abstracts.BaseEntity;
-import edu.estu.estufastingrestapi.entities.listeners.CateringListener;
+import edu.estu.estufastingrestapi.entities.listeners.ReservationListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_reservation", uniqueConstraints = @UniqueConstraint(name = UK.RESERVATION_CUSTOMER_CATERING, columnNames = {"rf_customer", "rf_catering"}))
-@EntityListeners(CateringListener.class)
+@EntityListeners(ReservationListener.class)
 public class Reservation extends BaseEntity<UUID> {
 
     @Id

@@ -14,7 +14,6 @@ import edu.estu.estufastingrestapi.service.abstracts.CustomerTypeService;
 import edu.estu.estufastingrestapi.service.model.request.customertype.CustomerTypeCreateRequestModel;
 import edu.estu.estufastingrestapi.service.model.response.customertype.CustomerTypeQuickProjection;
 import io.swagger.annotations.Api;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

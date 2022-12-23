@@ -13,14 +13,15 @@ import edu.estu.estufastingrestapi.service.model.request.catering.CateringCreate
 import edu.estu.estufastingrestapi.service.model.response.catering.CateringFullyJoinedProjection;
 import edu.estu.estufastingrestapi.service.model.response.catering.CateringQuickProjection;
 import io.swagger.annotations.Api;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -55,6 +56,15 @@ public class CateringController {
             @ModelAttribute @Valid PageRequestModel pageRequestModel) {
         return ResponseBuilder.status(HttpStatus.OK)
                 .body(cateringService.getListFullyJoined(pageRequestModel, CateringFullyJoinedProjection.class));
+    }
+
+    @GetMapping("/get/list/fully_joined/date_between")
+    public ResponseEntity<ServiceResponse> getListFullyJoinedDateBetween(
+            @ModelAttribute @Valid PageRequestModel pageRequestModel,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate lower,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate upper) {
+        return ResponseBuilder.status(HttpStatus.OK)
+                .body(cateringService.getListByDateBetween(pageRequestModel, CateringFullyJoinedProjection.class, lower, upper));
     }
 
     @Secured({RoleConst.Name.STAFF, RoleConst.Name.SUPER_ADMIN})
