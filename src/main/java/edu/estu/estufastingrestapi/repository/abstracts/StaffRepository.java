@@ -11,6 +11,8 @@ import java.util.UUID;
 @Repository
 public interface StaffRepository extends JpaRepositoryAdapter<Staff, UUID> {
 
+    boolean existsByUsername(String username);
+
     @Query(value = """
                 select u from Staff u
                 left join fetch u.language l

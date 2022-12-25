@@ -10,6 +10,7 @@ import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRe
 import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
 import edu.estu.estufastingrestapi.service.abstracts.CateringService;
 import edu.estu.estufastingrestapi.service.model.request.catering.CateringCreateRequestModel;
+import edu.estu.estufastingrestapi.service.model.request.catering.CateringMenuUpdateRequestModel;
 import edu.estu.estufastingrestapi.service.model.response.catering.CateringFullyJoinedProjection;
 import edu.estu.estufastingrestapi.service.model.response.catering.CateringQuickProjection;
 import io.swagger.annotations.Api;
@@ -70,8 +71,15 @@ public class CateringController {
     @Secured({RoleConst.Name.STAFF, RoleConst.Name.SUPER_ADMIN})
     @PostMapping("/create")
     public ResponseEntity<ServiceResponse> create(@RequestBody @Valid CateringCreateRequestModel model) {
-        return ResponseBuilder.status(HttpStatus.OK)
+        return ResponseBuilder.status(HttpStatus.CREATED)
                 .body(cateringService.create(model));
+    }
+
+    @Secured({RoleConst.Name.STAFF, RoleConst.Name.SUPER_ADMIN})
+    @PutMapping("/update-menu-items")
+    public ResponseEntity<ServiceResponse> updateMenuItems(@RequestBody @Valid CateringMenuUpdateRequestModel model) {
+        return ResponseBuilder.status(HttpStatus.OK)
+                .body(cateringService.updateMenuItems(model));
     }
 
     @Secured({RoleConst.Name.STAFF, RoleConst.Name.SUPER_ADMIN})

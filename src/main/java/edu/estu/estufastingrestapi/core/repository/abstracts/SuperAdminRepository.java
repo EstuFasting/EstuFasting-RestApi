@@ -10,6 +10,8 @@ import java.util.UUID;
 @Repository
 public interface SuperAdminRepository extends JpaRepositoryAdapter<SuperAdmin, UUID> {
 
+    boolean existsByUsername(String username);
+
     @Query(value = """
                 select s from SuperAdmin s
                 left join fetch s.language l

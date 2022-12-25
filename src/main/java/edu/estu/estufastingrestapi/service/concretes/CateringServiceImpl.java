@@ -1,6 +1,7 @@
 package edu.estu.estufastingrestapi.service.concretes;
 
 import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
+import edu.estu.estufastingrestapi.core.domain.entity.abstracts.Identifiable;
 import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.BaseReadableServiceImpl;
 import edu.estu.estufastingrestapi.core.service.helper.EntityServiceHelper;
 import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
@@ -11,9 +12,11 @@ import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResp
 import edu.estu.estufastingrestapi.core.service.response.helper.ResponseHelper;
 import edu.estu.estufastingrestapi.core.service.response.success.ServiceSuccessDataResponse;
 import edu.estu.estufastingrestapi.entities.concretes.Catering;
+import edu.estu.estufastingrestapi.entities.concretes.MenuItem;
 import edu.estu.estufastingrestapi.repository.abstracts.CateringRepository;
 import edu.estu.estufastingrestapi.service.abstracts.CateringService;
 import edu.estu.estufastingrestapi.service.model.request.catering.CateringCreateRequestModel;
+import edu.estu.estufastingrestapi.service.model.request.catering.CateringMenuUpdateRequestModel;
 import edu.estu.estufastingrestapi.service.model.response.catering.CateringResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,6 +53,22 @@ public class CateringServiceImpl extends BaseReadableServiceImpl<Catering, UUID>
     public ServiceDataResponse<Model> create(CateringCreateRequestModel model) {
         Catering saved = EntityServiceHelper.saveAndRefresh(cateringRepository, createRequestMapper.map(model));
         return new ServiceSuccessDataResponse<>(cateringResponseMapper.map(saved), MsgCode.COMMON_SUCCESS_SAVED);
+    }
+
+    @Override
+    public ServiceResponse updateMenuItems(CateringMenuUpdateRequestModel model) {
+        Catering catering = cateringRepository.getReferenceById(model.getCateringId());
+        boolean changed = model.getMenuItemIds().size() != catering.getMenuItems().size();
+        for (MenuItem menuItem : catering.getMenuItems())
+            if (!model.getMenuItemIds().contains(menuItem.getId())) {
+                changed = true;
+                break;
+            }
+        if (!changed) return ResponseHelper.getResponseBySuccess(true, MsgCode.COMMON_SUCCESS_UPDATED);
+        catering.getMenuItems().clear();
+        for (UUID menuItemId : model.getMenuItemIds())
+            catering.getMenuItems().add(Identifiable.getInstance(MenuItem::new, menuItemId));
+        return ResponseHelper.getResponseBySuccess(true, MsgCode.COMMON_SUCCESS_UPDATED);
     }
 
     @Override

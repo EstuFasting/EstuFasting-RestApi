@@ -6,6 +6,7 @@ import edu.estu.estufastingrestapi.core.service.abstracts.infrastructure.Readabl
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
 import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
 import edu.estu.estufastingrestapi.service.model.request.catering.CateringCreateRequestModel;
+import edu.estu.estufastingrestapi.service.model.request.catering.CateringMenuUpdateRequestModel;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -16,6 +17,8 @@ public interface CateringService extends EntityService, CreatableService<Caterin
     <P> ServiceResponse getListFullyJoined(PageRequestModel pageRequestModel, Class<P> projection);
 
     <P> ServiceResponse getListByDateBetween(PageRequestModel pageRequestModel, Class<P> projection, LocalDate lowerBound, LocalDate upperBound);
+
+    ServiceResponse updateMenuItems(CateringMenuUpdateRequestModel model);
 
     ServiceResponse addMenuItem(UUID cateringId, UUID menuItemId);
 

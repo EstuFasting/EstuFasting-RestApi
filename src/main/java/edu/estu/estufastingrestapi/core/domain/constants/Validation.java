@@ -73,7 +73,7 @@ public class Validation {
     @UtilityClass
     public class Catering {
         public final int MIN_VAL_PRICE = 10;
-        public final int MAX_SIZE_MENU_ITEM_COUNT = 10;
+        public final int MAX_SIZE_MENU_ITEM_COUNT = 4;
     }
 
     @UtilityClass

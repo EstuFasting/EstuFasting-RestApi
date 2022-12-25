@@ -22,6 +22,7 @@ import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,10 +45,12 @@ public class AuthController {
     private final CustomerService customerService;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    @PreAuthorize("@staffRepository.existsByUsername(#model.identifier) or @superAdminRepository.existsByUsername(#model.identifier)")
     @PostMapping("/login/management")
     @SneakyThrows(BadCredentialsException.class)
     public ResponseEntity<ServiceResponse> loginManagement(@RequestBody @Valid ManagementLoginRequestModel model) {
         String password = userService.getPasswordByUsername(model.getIdentifier());
+
         if (password == null)
             throw new UsernameNotFoundException(MsgCode.SECURITY_LOGIN_WRONG_USERNAME);
         if (!passwordEncoder.matches(model.getPassword(), password))

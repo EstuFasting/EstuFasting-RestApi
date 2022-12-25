@@ -15,6 +15,7 @@ public class ServiceErrorDataResponse<T> extends ServiceDataResponse<T> {
     public ServiceErrorDataResponse(Throwable ex, String debugMessage, T data, String messageCode, Object... args) {
         super(data, messageCode == null ? MsgCode.COMMON_ERROR : messageCode, args);
         this.debugMessage = debugMessage;
+        ex.printStackTrace();
         log.info("An exception has handled: " + ex.getClass().getName());
     }
 
