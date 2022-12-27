@@ -36,7 +36,7 @@ public class StaffController {
                 .body(staffService.getCount());
     }
 
-    @Secured({RoleConst.Name.STAFF, RoleConst.Name.SUPER_ADMIN})
+    @Secured({RoleConst.Name.SUPER_ADMIN})
     @PostMapping("/create")
     public ResponseEntity<ServiceResponse> create(@RequestBody @Valid StaffCreateRequestModel model) {
         return ResponseBuilder.status(HttpStatus.CREATED)

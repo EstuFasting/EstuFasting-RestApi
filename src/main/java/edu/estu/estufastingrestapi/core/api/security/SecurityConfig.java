@@ -27,7 +27,8 @@ public class SecurityConfig {
     private final JwtTokenFilter jwtTokenFilter;
     private final UserDetailsService userDetailsService;
 
-    private static final String[] AUTH_WHITELIST = {
+    private static final String[] PUBLIC_END_POINTS = {
+
             // Swagger UI v2
             "/v2/api-docs",
             "/swagger-resources",
@@ -36,10 +37,27 @@ public class SecurityConfig {
             "/configuration/security",
             "/swagger-ui.html",
             "/webjars/**",
+
             // Swagger UI v3 (OpenAPI)
             "/v3/api-docs/**",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+
+            // Application Core
+            "/api/v1/auth/login/**",
+            "/api/v1/language/get/**",
+
+            // Application Feature
+            "/api/v1/catering/get/**",
+            "/api/v1/customer/create/**",
+            "/api/v1/dining_hall/get/**",
+            "/api/v1/feedback/create/**",
+            "/api/v1/meal/get/**",
+            "/api/v1/staff/get/count",
     };
+
+    public static String[] getPublicEndPoints() {
+        return PUBLIC_END_POINTS;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -58,7 +76,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
 
-                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers(PUBLIC_END_POINTS).permitAll()
                 .antMatchers("/**").permitAll()
 
                 .and().exceptionHandling()
@@ -75,8 +93,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder())
-                .and()
-                .build();
+                .and().build();
     }
 
 }

@@ -11,7 +11,7 @@ public class UpdateAuditableListener {
     @PreUpdate
     public void preUpdate(UpdateAuditable target) {
         target.setModifiedAt(LocalDateTime.now());
-        target.setModifier(SecurityStaticHelper.getCurrentUsername().orElse("[ANONYMOUS]"));
+        target.setModifier(SecurityStaticHelper.getUsername().orElse("[ANONYMOUS]"));
     }
 
 }

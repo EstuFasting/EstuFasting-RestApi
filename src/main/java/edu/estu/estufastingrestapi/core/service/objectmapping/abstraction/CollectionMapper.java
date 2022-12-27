@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CollectionMapper<Source, Destination> extends Mapper<Source, Destination> {
 
-    default List<Destination> mapCollection(Collection<Source> sourceCollection) {
+    default List<Destination> mapCollection(Collection<? extends Source> sourceCollection) {
         if (sourceCollection == null) return new ArrayList<>();
         List<Destination> destinations = new ArrayList<>(sourceCollection.size());
         for (Source source : sourceCollection)

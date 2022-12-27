@@ -17,6 +17,7 @@ public class FileHelper {
 
     @SneakyThrows(IOException.class)
     public Stream<Path> findAllMatchingFiles(Path start, String regex) {
+        if (Files.notExists(start)) return Stream.empty();
         return Files.find(start, Integer.MAX_VALUE, (path, basicFileAttributes) -> path.toFile().getName().matches(regex));
     }
 

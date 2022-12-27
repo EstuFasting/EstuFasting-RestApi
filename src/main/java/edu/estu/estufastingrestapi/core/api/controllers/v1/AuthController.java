@@ -14,7 +14,6 @@ import edu.estu.estufastingrestapi.core.service.model.request.authentication.Man
 import edu.estu.estufastingrestapi.core.service.model.response.user.UserAuthProjection;
 import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceResponse;
 import edu.estu.estufastingrestapi.core.service.response.success.ServiceSuccessDataResponse;
-import edu.estu.estufastingrestapi.entities.concretes.Customer;
 import edu.estu.estufastingrestapi.service.abstracts.CustomerService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -50,11 +49,7 @@ public class AuthController {
     @SneakyThrows(BadCredentialsException.class)
     public ResponseEntity<ServiceResponse> loginManagement(@RequestBody @Valid ManagementLoginRequestModel model) {
         String password = userService.getPasswordByUsername(model.getIdentifier());
-
-        if (password == null)
-            throw new UsernameNotFoundException(MsgCode.SECURITY_LOGIN_WRONG_USERNAME);
-        if (!passwordEncoder.matches(model.getPassword(), password))
-            throw new BadCredentialsException(MsgCode.SECURITY_LOGIN_WRONG_PASSWORD);
+        checkPassword(password, model.getPassword());
 
         UserAuthProjection user = userService.getUserForLogin(model.getIdentifier());
         return ResponseBuilder.status(HttpStatus.OK)
@@ -65,19 +60,24 @@ public class AuthController {
     @PostMapping("/login/customer")
     @SneakyThrows(BadCredentialsException.class)
     public ResponseEntity<ServiceResponse> loginCustomer(@RequestBody @Valid CustomerLoginRequestModel model) {
-        boolean tckn = model.getIdentifier().matches(Validation.Customer.RGX_TCKN);
-        Customer customer;
-        if (tckn) customer = customerService.getQuickByTckn(model.getIdentifier(), Customer.class).getData();
-        else customer = customerService.getOneByIdentifier(model.getIdentifier(), Customer.class).getData();
+        boolean isTckn = model.getIdentifier().matches(Validation.Customer.RGX_TCKN);
+        String password = isTckn ?
+                customerService.getPasswordByTckn(model.getIdentifier()) :
+                userService.getPasswordByUsername(model.getIdentifier());
+        checkPassword(password, model.getPassword());
 
-        if (customer.getPassword() == null)
-            throw new UsernameNotFoundException(MsgCode.SECURITY_LOGIN_WRONG_USERNAME);
-        if (!passwordEncoder.matches(model.getPassword(), customer.getPassword()))
-            throw new BadCredentialsException(MsgCode.SECURITY_LOGIN_WRONG_PASSWORD);
-
-        UserAuthProjection user = userService.getUserForLogin(customer.getUsername());
+        UserAuthProjection user = isTckn ?
+                customerService.getCustomerForLoginByTckn(model.getIdentifier()) :
+                userService.getUserForLogin(model.getIdentifier());
         return ResponseBuilder.status(HttpStatus.OK)
                 .header(HttpHeaders.AUTHORIZATION, jwtTokenHelper.generateToken(user))
                 .body(new ServiceSuccessDataResponse<>(user, MsgCode.COMMON_SUCCESS));
+    }
+
+    private void checkPassword(String real, String given) {
+        if (real == null)
+            throw new UsernameNotFoundException(MsgCode.SECURITY_LOGIN_WRONG_USERNAME);
+        if (!passwordEncoder.matches(given, real))
+            throw new BadCredentialsException(MsgCode.SECURITY_LOGIN_WRONG_PASSWORD);
     }
 }

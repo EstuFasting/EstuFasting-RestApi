@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserAuthProjection getUserAuthoritiesByUsername(String username) {
+    public UserAuthProjection getUserAuthProjection(String username) {
         return userRepository.findUserAuthoritiesByUsername(username, UserAuthProjection.class).orElseThrow(EntityNotFoundException::new);
     }
 

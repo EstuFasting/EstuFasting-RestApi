@@ -11,7 +11,7 @@ public class CreateAuditableListener {
     @PrePersist
     public void prePersist(CreateAuditable target) {
         target.setCreatedAt(LocalDateTime.now());
-        target.setCreator(SecurityStaticHelper.getCurrentUsername().orElse("[ANONYMOUS]"));
+        target.setCreator(SecurityStaticHelper.getUsername().orElse("[ANONYMOUS]"));
     }
 
 }

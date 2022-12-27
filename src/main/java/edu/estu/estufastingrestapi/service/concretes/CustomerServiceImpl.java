@@ -4,6 +4,7 @@ import edu.estu.estufastingrestapi.core.domain.constants.MsgCode;
 import edu.estu.estufastingrestapi.core.service.helper.EntityServiceHelper;
 import edu.estu.estufastingrestapi.core.service.model.abstraction.Model;
 import edu.estu.estufastingrestapi.core.service.model.request.pagerequest.PageRequestModel;
+import edu.estu.estufastingrestapi.core.service.model.response.user.UserAuthProjection;
 import edu.estu.estufastingrestapi.core.service.objectmapping.manual.concretes.PageRequestMapper;
 import edu.estu.estufastingrestapi.core.service.objectmapping.mapstruct.MapStructMapper;
 import edu.estu.estufastingrestapi.core.service.response.abstraction.ServiceDataResponse;
@@ -33,13 +34,18 @@ public class CustomerServiceImpl implements CustomerService {
     private final MapStructMapper<Customer, CustomerResponse> customerResponseMapper;
 
     @Override
-    public <P> ServiceDataResponse<P> getQuickByTckn(String tckn, Class<P> projection) {
-        return new ServiceSuccessDataResponse<>(customerRepository.findQuickByTckn(tckn, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
+    public String getPasswordByTckn(String tckn) {
+        return customerRepository.findPasswordByTckn(tckn);
     }
 
     @Override
     public <P> ServiceDataResponse<P> getOneByIdentifier(String username, Class<P> projection) {
         return new ServiceSuccessDataResponse<>(customerRepository.findFullyJoinedByUsername(username, projection).orElseThrow(EntityNotFoundException::new), MsgCode.COMMON_SUCCESS_FETCHED);
+    }
+
+    @Override
+    public UserAuthProjection getCustomerForLoginByTckn(String tckn) {
+        return customerRepository.findByUsernameForLogin(tckn).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override

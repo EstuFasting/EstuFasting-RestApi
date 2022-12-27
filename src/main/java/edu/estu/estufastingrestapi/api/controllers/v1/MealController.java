@@ -55,6 +55,7 @@ public class MealController {
                 .body(mealService.getList(pageRequestModel, MealQuickProjection.class));
     }
 
+    @Secured(RoleConst.Name.SUPER_ADMIN)
     @PostMapping("/create")
     public ResponseEntity<ServiceResponse> create(@RequestBody @Valid MealCreateRequestModel model) {
         return ResponseBuilder.status(HttpStatus.CREATED)

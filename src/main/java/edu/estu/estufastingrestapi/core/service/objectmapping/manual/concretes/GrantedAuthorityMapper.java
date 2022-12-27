@@ -35,11 +35,4 @@ public class GrantedAuthorityMapper implements Mapper<Collection<?>, List<Grante
         return destination;
     }
 
-    public List<String> toAuthority(Collection<GrantedAuthority> grantedAuthorities) {
-        ArrayList<String> destination = new ArrayList<>(grantedAuthorities.size());
-        for (GrantedAuthority grantedAuthority : grantedAuthorities)
-            destination.add(grantedAuthority.getAuthority());
-        return destination;
-    }
-
 }

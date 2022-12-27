@@ -20,7 +20,7 @@ public interface UserService extends UserDetailsService, EntityService, Readable
 
     UserAuthProjection getUserForLogin(String username);
 
-    UserAuthProjection getUserAuthoritiesByUsername(String username);
+    UserAuthProjection getUserAuthProjection(String username);
 
     <P> ServiceResponse getOneFullyJoinedByUsername(String username, Class<P> projection);
 

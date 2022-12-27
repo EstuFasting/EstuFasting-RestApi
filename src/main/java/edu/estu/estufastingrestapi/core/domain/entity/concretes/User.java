@@ -76,5 +76,9 @@ public class User extends BaseEntity<UUID> {
     )
     protected Set<Role> roles;
 
+    public User(String username) {
+        this.username = username;
+    }
+
 }
 
