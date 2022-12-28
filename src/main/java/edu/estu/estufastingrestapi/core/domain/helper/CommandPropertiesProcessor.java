@@ -17,7 +17,7 @@ import java.util.Optional;
  * Processor for command.properties file. Runs specified commands according to operating system when time condition satisfied.
  */
 @Slf4j
-@Component
+//@Component
 @Order(Integer.MIN_VALUE)
 public class CommandPropertiesProcessor {
 
