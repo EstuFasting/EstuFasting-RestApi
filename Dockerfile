@@ -3,6 +3,6 @@ COPY . .
 RUN mvn clean package -Pprod
 
 FROM openjdk:18-slim
-COPY target/estufasting.jar app.jar
+COPY --from=build /target/*.jar estufasting.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","estufasting.jar"]
